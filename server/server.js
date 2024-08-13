@@ -1,9 +1,14 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+
 const app = express();
+const recipeRoutes = require('../routes/recipes');
 
 app.use(bodyParser.json());
+
+// Routes
+app.use('/api/recipes', recipeRoutes);
 
 let ingredients = [];
 

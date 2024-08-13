@@ -11,7 +11,7 @@ const recipeSchema = new Schema({
         required: true
     },
     cookingTime: {
-        type: Number,
+        type: String,
         required: true
     },
     instructions: {
@@ -19,8 +19,8 @@ const recipeSchema = new Schema({
         required: true
     },
     recipeImage: {
-        type: Buffer,
-        required: true
+        type: String,
+        required: false
     }   
 }, {timestamps: true});
 
