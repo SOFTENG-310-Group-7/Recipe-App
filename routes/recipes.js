@@ -44,12 +44,11 @@ router.post('/generate', async (req, res) => {
     
     try {
         const recipeData = await generateRecipe(params);
-        console.log('Recipe Data:', recipeData);
         // remove the ```json``` and newline characters from the response
         const cleanedData = recipeData.replace(/```json|```|\n/g, '');
         let parsedData = JSON.parse(cleanedData);
 
-
+        console.log('Parsed Data:', parsedData);
         res.json(parsedData);
 
 
