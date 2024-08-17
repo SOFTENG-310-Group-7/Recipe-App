@@ -3,6 +3,7 @@ const Recipe = require('../models/recipeModel')
 const { generateRecipe } = require('../server/api/gemini/client');
 const { getImageByTitle } = require('../server/api/pexels/client');
 
+
 const router = express.Router()
 
 // GET all recipes
@@ -48,6 +49,7 @@ router.post('/generate', async (req, res) => {
         // remove the ```json``` and newline characters from the response
         const cleanedData = recipeData.replace(/```json|```|\n/g, '');
         let parsedData = JSON.parse(cleanedData);
+
 
         // Add the image URL to the response
         const recipeImage = await getImageByTitle(parsedData.recipeImage);
