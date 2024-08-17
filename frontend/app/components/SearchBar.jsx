@@ -24,10 +24,9 @@ export default function SearchBar({ onSearch }) {
         type="text"
         value={query}
         onChange={handleInputChange}
-        placeholder="Enter favourite recipe, ingredients.."
+        placeholder="Enter recipe, ingredients.."
         className="flex-grow border-none outline-none text-gray-700 text-lg"
       />
-      <FontAwesomeIcon icon={faSearch} size='2x'/>
     </form>
   );
 }
