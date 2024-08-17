@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons';
+import {Input} from "@nextui-org/react";
 
 export default function SearchBar({ onSearch }) {
   const [query, setQuery] = useState('');
@@ -19,14 +20,14 @@ export default function SearchBar({ onSearch }) {
   };
 
   return (
-    <form onSubmit={handleSearch} className="flex items-center bg-white rounded-full border-2 border-black px-4 py-2 w-full max-w-md">
-      <input
-        type="text"
-        value={query}
-        onChange={handleInputChange}
-        placeholder="Enter recipe, ingredients.."
-        className="flex-grow border-none outline-none text-gray-700 text-lg"
-      />
-    </form>
+    <Input
+    isClearable
+    type="email"
+    label="Recipe Search"
+    variant="bordered"
+    placeholder="Enter Recipe name"
+    onClear={() => console.log("input cleared")}
+    className="max-w-xl "
+  />
   );
 }

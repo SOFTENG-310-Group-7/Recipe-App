@@ -12,7 +12,7 @@ const recipes = [
     recipe: "Spaghetti Bolognese",
     cooktime: "30 mins",
     ingredients: "Spaghetti, Ground Beef, Tomato Sauce, Garlic, Onion, Olive Oil",
-    tags: "DF, GF",
+    tags: "DF, GF, VG",
     avatar: "https://i.pravatar.cc/150?u=recipe1",
   },
   {

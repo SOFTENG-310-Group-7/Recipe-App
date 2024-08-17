@@ -64,7 +64,7 @@ export default function App() {
   return (
     <Table
       aria-label="Recipe search results"
-      className="w-4/5 mx-auto mt-4 shadow-lg rounded-lg border border-gray-200"
+      className="w-4/5 mx-auto mt-6 shadow-lg rounded-lg border border-gray-200"
     >
       <TableHeader columns={columns}>
         {(column) => (
