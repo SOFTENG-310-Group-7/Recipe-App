@@ -66,4 +66,36 @@ router.post('/generate', async (req, res) => {
     }
 });
 
+router.post('/only', async (req, res) => {
+    const { ingredients, cuisine, dietaryPreferences, mealType, servings } = req.body;
+
+    const params = {
+        ingredients: ingredients,
+        cuisine: cuisine,
+        dietaryPreferences: dietaryPreferences,
+        mealType: mealType,
+        servings: servings
+    };
+    console.log('Params:', params);
+    
+    try {
+        const recipeData = await generateRecipe(params);
+        // remove the ```json``` and newline characters from the response
+        const cleanedData = recipeData.replace(/```json|```|\n/g, '');
+        let parsedData = JSON.parse(cleanedData);
+
+
+        // // Add the image URL to the response
+        // const recipeImage = await getImageByTitle(parsedData.recipeImage);
+        // console.log('Recipe Image:', recipeImage);
+        // parsedData.recipeImage = recipeImage;
+
+        // console.log('Parsed Data:', parsedData);
+        res.json(parsedData);
+      
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to generate recipe' });
+    }
+});
+
 module.exports = router
