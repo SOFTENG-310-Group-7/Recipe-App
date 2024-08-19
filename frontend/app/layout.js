@@ -17,7 +17,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
           <div className="bg-white">
             <Header />
-            <div className="flex justify-center mt-6">
+            <div>
               <SearchBar />
             </div>
             {children}

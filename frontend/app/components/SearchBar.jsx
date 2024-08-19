@@ -1,9 +1,8 @@
-"use client"
+"use client";
 
 import { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSearch } from '@fortawesome/free-solid-svg-icons';
-import {Input} from "@nextui-org/react";
+import { Input } from "@nextui-org/react";
+import DropDown from './DropDown';
 
 export default function SearchBar({ onSearch }) {
   const [query, setQuery] = useState('');
@@ -20,14 +19,25 @@ export default function SearchBar({ onSearch }) {
   };
 
   return (
-    <Input
-    isClearable
-    type="email"
-    label="Recipe Search"
-    variant="bordered"
-    placeholder="Enter Recipe name"
-    onClear={() => console.log("input cleared")}
-    className="max-w-xl "
-  />
+    <div className="flex flex-col items-center mt-6">
+      <div className="flex justify-center mb-4 w-full">
+        <Input
+          isClearable
+          type="text"
+          label="Recipe Search"
+          variant="bordered"
+          placeholder="Enter Recipe name"
+          onClear={() => console.log("input cleared")}
+          onChange={handleInputChange}
+          className="w-full max-w-2xl"  
+        />
+      </div>
+
+      <div className="flex justify-center gap-4">
+        <DropDown label="Meal Type" options={["Breakfast", "Lunch", "Dinner","Any"]} />
+        <DropDown label="Serving Size" options={[1, 2, 3, 4, 5]} />
+        <DropDown label="Cuisine" options={["Italian", "Indian", "French", "Spanish" ,"Any"]} />
+      </div>
+    </div>
   );
 }
