@@ -26,7 +26,7 @@ export default function SearchBar({ onSearch }) {
           type="text"
           label="Recipe Search"
           variant="bordered"
-          placeholder="Enter Recipe name"
+          placeholder="Enter Recipe name, Ingredient, or anything"
           onClear={() => console.log("input cleared")}
           onChange={handleInputChange}
           className="w-full max-w-2xl"  

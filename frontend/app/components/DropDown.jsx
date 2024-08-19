@@ -12,9 +12,12 @@ const DropDown = ({ label, options }) => {
   };
 
   return (
-    <div className="relative">
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
       <button
-        onClick={() => setOpen((pv) => !pv)}
         className="flex items-center gap-2 px-3 py-2 rounded-md text-indigo-50 bg-indigo-500 hover:bg-indigo-600 transition-colors"
       >
         <span className="font-medium text-sm">
@@ -51,3 +54,4 @@ const DropDown = ({ label, options }) => {
 };
 
 export default DropDown;
+
