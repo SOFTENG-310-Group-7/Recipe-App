@@ -36,9 +36,11 @@ export default function App() {
   }, [searchParams]);
 
   function handleViewButtonClick(recipe) {
+    // Serialize the recipe data
+    const serializedRecipe = encodeURIComponent(JSON.stringify(recipe));
 
-    console.log("View button clicked for recipe:", recipe);
-    router.push('/recipe-result');
+    // Navigate to the recipe-result page with serialized recipe data
+    router.push(`/recipe-result?recipe=${serializedRecipe}`);
   }
 
   const renderCell = React.useCallback(
