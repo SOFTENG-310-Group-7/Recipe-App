@@ -6,7 +6,13 @@ export default function RecipeInstructions({ instructions }) {
         <CardBody style={styles.cardBody}>
             <h3 style={styles.instructionsTitle}>Recipe Instructions</h3>
             <div style={styles.instructionsContent}>
-                <p style={styles.instructionsText}>{instructions}</p>
+                <ol style={styles.instructionsList}>
+                    {instructions.map((instruction, index) => (
+                        <li key={index} style={styles.instructionItem}>
+                            <span style={styles.dash}>- </span>{instruction}
+                        </li>
+                    ))}
+                </ol>
             </div>
         </CardBody>
     );
@@ -25,5 +31,15 @@ const styles = {
     },
     instructionsText: {
         whiteSpace: 'pre-line',
+    },
+    instructionsList: {
+        paddingLeft: '10px',
+    },
+    instructionItem: {
+        marginBottom: '2px',
+    },
+    dash: {
+        fontWeight: 'bold',
+        marginRight: '5px',
     },
 };
