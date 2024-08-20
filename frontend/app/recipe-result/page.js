@@ -73,6 +73,7 @@ const styles = {
         borderRadius: '12px',
         padding: '10px',
         height: '70vh',
+        border: '2px solid #6D28D9'
     },
     leftSide: {
         display: 'flex',

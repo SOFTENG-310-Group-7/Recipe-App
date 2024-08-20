@@ -3,16 +3,16 @@ import { CardBody } from "@nextui-org/react";
 
 export default function RecipeInstructions({ instructions, cookingTime }) {
     return (
-        <CardBody style={styles.cardBody}>
-            <div style={styles.header}>
-                <h3 style={styles.instructionsTitle}>Recipe Instructions</h3>
-                {cookingTime && <span style={styles.cookingTime}>({cookingTime})</span>}
+        <CardBody className="p-4">
+            <div className="flex items-center mb-2">
+                <h3 className="text-xl font-bold font-serif mr-4 mb-0">Recipe Instructions</h3>
+                {cookingTime && <span className="text-gray-600 text-sm">({cookingTime})</span>}
             </div>
-            <div style={styles.instructionsContent}>
-                <ol style={styles.instructionsList}>
+            <div className="overflow-auto max-h-[calc(100%_-_40px)]">
+                <ol className="list-decimal pl-4 font-serif">
                     {instructions.map((instruction, index) => (
-                        <li key={index} style={styles.instructionItem}>
-                            <span style={styles.dash}>- </span>{instruction}
+                        <li key={index} className="mb-1">
+                            {instruction}
                         </li>
                     ))}
                 </ol>
