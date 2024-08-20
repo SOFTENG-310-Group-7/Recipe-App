@@ -51,4 +51,9 @@ app.get("/api/generated-recipes", (req, res) => {
     res.json({ generatedRecipes: generated_recipes });
 });
 
+app.delete("/api/generated-recipes", (req, res) => {
+    generated_recipes = []
+    res.json({ generatedRecipes: generated_recipes });
+})
+
 module.exports = app;

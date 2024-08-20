@@ -46,6 +46,9 @@ export default function SearchBar() {
     setLoading(true); // Set loading to true when the search starts
 
     try {
+      await fetch('http://localhost:5000/api/generated-recipes', {
+        method: 'DELETE',
+      });
       const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
 
       // store generated recipes in back end
