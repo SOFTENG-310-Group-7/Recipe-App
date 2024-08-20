@@ -2,9 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 const recipeRoutes = require('../routes/recipes');
 
 const app = express();
+app.use(cors());
 dotenv.config({ path: './config.env' });
 
 app.use(bodyParser.json());
@@ -18,6 +20,7 @@ let ingredients = [];
 app.get("/api", (req, res) => {
     res.json({ ing: ingredients });
 });
+
 
 // Endpoint to add an ingredient
 app.post("/api/add", (req, res) => {
