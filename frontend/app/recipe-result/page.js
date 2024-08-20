@@ -40,7 +40,7 @@ export default function RecipePage() {
         <div style={styles.pageContainer}>
             <Card style={styles.recipeContainer}>
                 <div style={styles.leftSide}>
-                    <RecipeImage src={recipe.recipeImage} alt="Cookie" />
+                    <RecipeImage src='/cookie.jpg' alt="Cookie" />
                     <Ingredients ingredients={recipe.detailedIngredients} />
                 </div>
                 <div style={styles.rightSide}>

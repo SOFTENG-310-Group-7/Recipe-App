@@ -11,7 +11,6 @@ export async function generateRecipe(ingredients, cuisine, dietaryPreferences, m
     console.log('Params:', recipeData); // Log the parameters to ensure they are correct
   
     try {
-        console.log('1')
       const response = await fetch('http://localhost:5000/api/recipes/only', {
         method: 'POST',
         headers: {

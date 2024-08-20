@@ -116,6 +116,7 @@ router.post('/generate', async (req, res) => {
 });
 
 router.post('/only', async (req, res) => {
+    console.log(req.body)
     const { ingredients, cuisine, dietaryPreferences, mealType, servings } = req.body;
 
     const params = {
@@ -125,7 +126,7 @@ router.post('/only', async (req, res) => {
         mealType: mealType,
         servings: servings
     };
-    console.log('Params:', params);
+    console.log('Params at router.post:', params);
     
     try {
         const recipeData = await generateRecipe(params);

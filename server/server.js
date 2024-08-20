@@ -27,26 +27,28 @@ const startServer = async () => {
 
 startServer();
 
-let ingredients = [];
+let generated_recipes = [];
 
-// Endpoint to retrieve ingredients
+// Endpoint to see recipes
 app.get("/api", (req, res) => {
-    res.json({ ing: ingredients });
+    res.json({ generatedRecipes: generated_recipes });
 });
 
-// Endpoint to add an ingredient
-app.post("/api/add", (req, res) => {
-    const { ingredient } = req.body;
-    if (ingredient) {
-        ingredients.push(ingredient);
+// Endpoint to add generated recipes to the backend
+app.post("/api/generated-recipes", (req, res) => {
+    const { recipes } = req.body;
+
+    if (recipes && Array.isArray(recipes)) {
+        generated_recipes = recipes; // Replace existing recipes with the new ones
+        res.status(200).send({ message: 'Recipes stored successfully' });
+    } else {
+        res.status(400).send({ message: 'Invalid recipe data' });
     }
-    res.json({ ing: ingredients });
 });
 
-// Endpoint to reset ingredients
-app.post("/api/reset", (req, res) => {
-    ingredients = [];
-    res.json({ ing: ingredients });
+// Endpoint to see recipes
+app.get("/api/generated-recipes", (req, res) => {
+    res.json({ generatedRecipes: generated_recipes });
 });
 
 module.exports = app;
