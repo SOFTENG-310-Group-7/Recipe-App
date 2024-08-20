@@ -46,7 +46,7 @@ export default function RecipePage() {
                 <div style={styles.rightSide}>
                     <RecipeHeader title={recipe.title} onSave={handleSaveRecipe} />
                     <Divider />
-                    <RecipeInstructions instructions={recipe.instructions} />
+                    <RecipeInstructions instructions={recipe.instructions} cookingTime = {recipe.cookingTime} />
                 </div>
             </Card>
         </div>
