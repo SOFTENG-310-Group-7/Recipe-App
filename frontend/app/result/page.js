@@ -35,6 +35,7 @@ export default function App() {
     fetchRecipes();
   }, []);
 
+  // send to recipe-result screen
   async function handleViewButtonClick(recipe) {
       const serializedRecipe = encodeURIComponent(JSON.stringify(recipe));
       router.push(`/recipe-result?recipe=${serializedRecipe}`);

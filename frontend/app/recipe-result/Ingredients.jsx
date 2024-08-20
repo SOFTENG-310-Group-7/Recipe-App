@@ -2,9 +2,7 @@ import React from 'react';
 import { Divider } from "@nextui-org/react";
 
 export default function Ingredients({ ingredients }) {
-    // Check if ingredients is an array
     if (!Array.isArray(ingredients)) {
-        console.error('Ingredients prop must be an array');
         return <p>Error: Ingredients data is not available.</p>;
     }
 

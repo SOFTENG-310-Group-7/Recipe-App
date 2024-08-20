@@ -80,8 +80,8 @@ router.patch('/:id', (req, res) => {
     res.json({ message: 'Update a recipe'})
 })
 
-// generating image using Pexels API
-router.post('/generate-image', async (req, res) => {
+// generating image using Pexels API (TRIED BUT NOT WORKING)
+/*router.post('/generate-image', async (req, res) => {
     const { title, ingredients, detailedIngredients, cookingTime, instructions, recipeImage, tags } = req.body;
 
     const recipe = {
@@ -104,7 +104,7 @@ router.post('/generate-image', async (req, res) => {
         console.error('Error generating recipe image:', error.message);
         res.status(500).json({ error: error.message });
     }
-});
+});*/
 
 router.post('/generate-recipes', async (req, res) => {
     const { ingredients, cuisine, dietaryPreferences, mealType, servings } = req.body;

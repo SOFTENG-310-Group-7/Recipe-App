@@ -8,7 +8,7 @@ export async function generateRecipe(ingredients, cuisine, dietaryPreferences, m
       servings
     };
   
-    console.log('Params in api.js:', recipeData); // Log the parameters to ensure they are correct
+    console.log('Params in api.js:', recipeData);
   
     try {
       const response = await fetch('http://localhost:5000/api/recipes/generate-recipes', {

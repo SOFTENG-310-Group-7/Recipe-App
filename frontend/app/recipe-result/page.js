@@ -13,12 +13,12 @@ export default function RecipePage() {
     const [recipe, setRecipe] = useState(null);
     const searchParams = useSearchParams();
 
+    // use query params to get recipe
     useEffect(() => {
         const recipeParam = searchParams.get('recipe');
 
         if (recipeParam) {
             try {
-                // Deserialize the recipe data
                 const deserializedRecipe = JSON.parse(decodeURIComponent(recipeParam));
                 setRecipe(deserializedRecipe);
                 console.log(deserializedRecipe);
