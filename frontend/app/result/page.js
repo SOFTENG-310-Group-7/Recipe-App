@@ -1,6 +1,6 @@
-"use client"
+"use client";
 
-import React from "react";
+import React, { useMemo } from "react";
 import {
   Table,
   TableHeader,
@@ -9,93 +9,113 @@ import {
   TableRow,
   TableCell,
   Chip,
-  Tooltip,
+  Button,
 } from "@nextui-org/react";
-import {columns, recipes} from "./data";
-import { Button } from "@nextui-org/react";
 import { useSearchParams } from "next/navigation";
 
 const tagColorMap = {
-  VG: "success",
-  GF: "primary",
-  DF: "warning",
+  vegan: "success",
+  vegetarian: "success",
+  healthy: "warning",
+  gf: "primary", // gluten-free
 };
 
-
-
 export default function App() {
-  const renderCell = React.useCallback((recipe, columnKey) => {
-    const cellValue = recipe[columnKey];
-
-    switch (columnKey) {
-      case "recipe":
-        return (
-          <div>
-            <p className="text-bold text-sm">{recipe.recipe}</p>
-            <p className="text-sm text-default-400">Cook Time: {recipe.cooktime}</p>
-          </div>
-        );
-      case "ingredients":
-        return <p className="text-sm text-default-600">{cellValue}</p>;
-      case "tags":
-        return (
-          <div className="flex gap-2">
-            {cellValue.split(', ').map((tag) => (
-              <Chip
-                key={tag}
-                className="capitalize"
-                color={tagColorMap[tag] || "default"}
-                size="sm"
-                variant="flat"
-              >
-                {tag}
-              </Chip>
-            ))}
-          </div>
-        );
-      case "actions":
-        return (
-          <div className="relative flex items-center gap-2">
-          <Button color="success" size="small">View</Button>
-          </div>
-        );
-      default:
-        return cellValue;
+  // Retrieve the "data" search parameter from the URL
+  const searchParams = useSearchParams().get("data");
+  
+  // Safely parse the searchParams string to JSON, with a fallback for null or malformed data
+  const recipeData = useMemo(() => {
+    try {
+      return JSON.parse(searchParams);
+    } catch (error) {
+      console.error("Failed to parse recipe data:", error);
+      return [];
     }
-  }, []);
+  }, [searchParams]);
 
-  const searchParams = useSearchParams();
-  console.log(searchParams.get("recipe"));
+  const renderCell = React.useCallback(
+    (recipe, columnKey) => {
+      switch (columnKey) {
+        case "recipe":
+          return (
+            <div>
+              <p className="text-bold text-sm">{recipe.title}</p>
+              <p className="text-sm text-default-400">Cook Time: {recipe.cookingTime}</p>
+            </div>
+          );
+        case "ingredients":
+          return (
+            <p className="text-sm text-default-600">
+              {Array.isArray(recipe.ingredients) ? recipe.ingredients.join(", ") : "N/A"}
+            </p>
+          );
+        case "tags":
+          const displayedTags = recipe.tags.slice(0, 3);
+          return (
+            <div className="flex gap-2">
+              {displayedTags.map((tag) => (
+                <Chip
+                  key={tag}
+                  className="capitalize"
+                  color={tagColorMap[tag.toLowerCase()] || "default"}
+                  size="sm"
+                  variant="flat"
+                >
+                  {tag}
+                </Chip>
+              ))}
+            </div>
+          );
+        case "actions":
+          return (
+            <div className="relative flex items-center gap-2">
+              <Button color="success" size="small">
+                View
+              </Button>
+            </div>
+          );
+        default:
+          return null;
+      }
+    },
+    []
+  );
 
-  return (
+  // Render the table only if the recipe data is available
+  return recipeData.length > 0 ? (
     <Table
-      aria-label="Recipe search results"
+      aria-label="Recipe Details"
       className="w-4/5 mx-auto mt-6 shadow-lg rounded-lg border border-gray-200"
     >
-      <TableHeader columns={columns}>
-        {(column) => (
-          <TableColumn
-            key={column.uid}
-            align={column.uid === "actions" ? "center" : "start"}
-          >
-            <span className="font-semibold text-lg text-gray-700">{column.name}</span>
-          </TableColumn>
-        )}
+      <TableHeader>
+        <TableColumn key="recipe" align="start">
+          <span className="font-semibold text-lg text-gray-700">Recipe</span>
+        </TableColumn>
+        <TableColumn key="ingredients" align="start">
+          <span className="font-semibold text-lg text-gray-700">Ingredients</span>
+        </TableColumn>
+        <TableColumn key="tags" align="start">
+          <span className="font-semibold text-lg text-gray-700">Tags</span>
+        </TableColumn>
+        <TableColumn key="actions" align="center">
+          <span className="font-semibold text-lg text-gray-700">Actions</span>
+        </TableColumn>
       </TableHeader>
-      <TableBody items={recipes} className="divide-y divide-gray-300">
-        {(item) => (
-          <TableRow
-            key={item.id}
-            className="hover:bg-gray-100 transition-colors duration-200 cursor-pointer"
-          >
-            {(columnKey) => (
-              <TableCell>
-                {renderCell(item, columnKey)}
-              </TableCell>
-            )}
+      <TableBody>
+        {recipeData.map((recipe, index) => (
+          <TableRow key={index}>
+            <TableCell>{renderCell(recipe, "recipe")}</TableCell>
+            <TableCell>{renderCell(recipe, "ingredients")}</TableCell>
+            <TableCell>{renderCell(recipe, "tags")}</TableCell>
+            <TableCell>{renderCell(recipe, "actions")}</TableCell>
           </TableRow>
-        )}
+        ))}
       </TableBody>
     </Table>
+  ) : (
+    <div className="w-4/5 mx-auto mt-6">
+      <p className="text-center text-gray-500">No recipe data available.</p>
+    </div>
   );
 }

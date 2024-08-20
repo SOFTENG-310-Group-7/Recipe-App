@@ -49,7 +49,8 @@ export default function Home() {
 
   return (
 <div className="text-center font-sans p-5 bg-white">
-  <h1 className="text-4xl my-5">MEALMATCH</h1>
+    <h1>placeholder</h1>
+  {/* <h1 className="text-4xl my-5">MEALMATCH</h1>
   <h2 className="text-2xl my-5">Welcome to MealMatch, input your ingredients:</h2>
   <div className="mt-5">
     <input
@@ -81,7 +82,7 @@ export default function Home() {
         {ingredient}
       </div>
     ))}
-  </div>
+  </div> */}
 </div> 
 
   );

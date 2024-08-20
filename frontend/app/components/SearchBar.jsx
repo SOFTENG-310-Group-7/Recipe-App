@@ -23,12 +23,12 @@ export default function SearchBar() {
     if (label === 'Cuisine') setCuisine(option);
   };
 
-  const createQueryString = (name, value) => {
-    const params = new URLSearchParams();
-    params.set(name, value);
+//   const createQueryString = (name, value) => {
+//     const params = new URLSearchParams();
+//     params.set(name, value);
 
-    return params.toString();
-  };
+//     return params.toString();
+//   };
 
 
   const handleSearch = async (e) => {
@@ -38,12 +38,13 @@ export default function SearchBar() {
     const selectedCuisine = cuisine;
     const selectedMealType = mealType;
     const selectedServingSize = servingSize; 
-    const dietaryPreferences = 'gf,vf';
+    const dietaryPreferences = 'none';
 
     try {
       const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
       console.log('API Response:', data);
-      router.push("/result" + "?" + createQueryString('recipe', JSON.stringify(data)));
+    
+      router.push(`/result?data=${(JSON.stringify(data))}`);
 
     } catch (error) {
       console.error('Error fetching the recipe:', error);

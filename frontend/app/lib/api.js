@@ -22,8 +22,7 @@ export async function generateRecipe(ingredients, cuisine, dietaryPreferences, m
       if (!response.ok) {
         throw new Error(`Error: ${response.statusText}`);
       }
-  
-      const data = await response.json(); // Parse the JSON response
+      const data = await response.json();
       return data;
     } catch (error) {
       console.error('Failed to generate recipe:', error);
