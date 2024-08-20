@@ -11,11 +11,15 @@ export default function SearchBar() {
   const [servingSize, setServingSize] = useState('Any');
   const [cuisine, setCuisine] = useState('Any');
   const [loading, setLoading] = useState(false);
+  const [inputError, setInputError] = useState(false); // State to track input error
 
   const router = useRouter();
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
+    if (e.target.value) {
+      setInputError(false); // Reset input error if user starts typing
+    }
   };
 
   const handleDropDownSelect = (label, option) => {
@@ -26,6 +30,12 @@ export default function SearchBar() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+
+    if (!query.trim()) {
+      // If input is empty, show error and stop submission
+      setInputError(true);
+      return;
+    }
 
     const ingredients = query;
     const selectedCuisine = cuisine;
@@ -39,7 +49,7 @@ export default function SearchBar() {
       const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
       console.log('API Response:', data);
     
-      router.push(`/result?data=${(JSON.stringify(data))}`);
+      router.push(`/result?data=${encodeURIComponent(JSON.stringify(data))}`);
     } catch (error) {
       console.error('Error fetching the recipe:', error);
     } finally {
@@ -62,7 +72,7 @@ export default function SearchBar() {
             <div className="flex rounded-md overflow-hidden w-full">
               <input
                 type="text"
-                className="w-full rounded-l-md border-2 border-black p-2"
+                className={`w-full rounded-l-md border-2 p-2 ${inputError ? 'border-red-500' : 'border-black'}`}
                 placeholder="Enter Recipe name or ingredients.."
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
