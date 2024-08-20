@@ -13,18 +13,17 @@ import {
 } from "@nextui-org/react";
 import { useSearchParams } from "next/navigation";
 
-const tagColorMap = {
-  vegan: "success",
-  vegetarian: "success",
-  healthy: "warning",
-  gf: "primary", // gluten-free
-};
+// const randomColor = () => {
+//     const colors = ["primary", "success", "warning"];
+    
+//     return colors[Math.floor(Math.random() * colors.length)];
+// }
+
 
 export default function App() {
   // Retrieve the "data" search parameter from the URL
   const searchParams = useSearchParams().get("data");
   
-  // Safely parse the searchParams string to JSON, with a fallback for null or malformed data
   const recipeData = useMemo(() => {
     try {
       return JSON.parse(searchParams);
@@ -58,7 +57,7 @@ export default function App() {
                 <Chip
                   key={tag}
                   className="capitalize"
-                  color={tagColorMap[tag.toLowerCase()] || "default"}
+                  color={"primary"}
                   size="sm"
                   variant="flat"
                 >

@@ -10,6 +10,7 @@ export default function SearchBar() {
   const [mealType, setMealType] = useState('Any');
   const [servingSize, setServingSize] = useState('Any');
   const [cuisine, setCuisine] = useState('Any');
+  const [loading, setLoading] = useState(false);
 
   const router = useRouter();
 
@@ -23,14 +24,6 @@ export default function SearchBar() {
     if (label === 'Cuisine') setCuisine(option);
   };
 
-//   const createQueryString = (name, value) => {
-//     const params = new URLSearchParams();
-//     params.set(name, value);
-
-//     return params.toString();
-//   };
-
-
   const handleSearch = async (e) => {
     e.preventDefault();
 
@@ -40,14 +33,17 @@ export default function SearchBar() {
     const selectedServingSize = servingSize; 
     const dietaryPreferences = 'none';
 
+    setLoading(true); // Set loading to true when the search starts
+
     try {
       const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
       console.log('API Response:', data);
     
       router.push(`/result?data=${(JSON.stringify(data))}`);
-
     } catch (error) {
       console.error('Error fetching the recipe:', error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -74,8 +70,9 @@ export default function SearchBar() {
               <button
                 type="submit"
                 className="bg-black text-white px-6 text-lg font-semibold py-2 rounded-r-md"
+                disabled={loading}
               >
-                Go
+                {loading ? 'Loading...' : 'Go'}
               </button>
             </div>
           </div>
@@ -99,6 +96,10 @@ export default function SearchBar() {
           onSelect={(option) => handleDropDownSelect('Cuisine', option)}
         />
       </div>
+
+      {loading && (
+        <div className="mt-4 text-gray-600">Loading recipes, please wait...</div>
+      )}
     </div>
   );
 }
