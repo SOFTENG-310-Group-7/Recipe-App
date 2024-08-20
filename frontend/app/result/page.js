@@ -13,12 +13,15 @@ import {
 } from "@nextui-org/react";
 import {columns, recipes} from "./data";
 import { Button } from "@nextui-org/react";
+import { useSearchParams } from "next/navigation";
 
 const tagColorMap = {
   VG: "success",
   GF: "primary",
   DF: "warning",
 };
+
+
 
 export default function App() {
   const renderCell = React.useCallback((recipe, columnKey) => {
@@ -60,6 +63,9 @@ export default function App() {
         return cellValue;
     }
   }, []);
+
+  const searchParams = useSearchParams();
+  console.log(searchParams.get("recipe"));
 
   return (
     <Table

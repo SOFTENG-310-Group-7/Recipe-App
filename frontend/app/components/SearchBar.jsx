@@ -1,14 +1,17 @@
 "use client";
 
 import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 import DropDown from './DropDown';
 import { generateRecipe } from '../lib/api';
 
-export default function SearchBar({ onSearch }) {
+export default function SearchBar() {
   const [query, setQuery] = useState('');
   const [mealType, setMealType] = useState('Any');
   const [servingSize, setServingSize] = useState('Any');
   const [cuisine, setCuisine] = useState('Any');
+
+  const router = useRouter();
 
   const handleInputChange = (e) => {
     setQuery(e.target.value);
@@ -20,31 +23,35 @@ export default function SearchBar({ onSearch }) {
     if (label === 'Cuisine') setCuisine(option);
   };
 
+  const createQueryString = (name, value) => {
+    const params = new URLSearchParams();
+    params.set(name, value);
+
+    return params.toString();
+  };
+
+
   const handleSearch = async (e) => {
     e.preventDefault();
-  
-    // Extract the individual parameters from your state
-    const ingredients = query; // use 'query' state for ingredients
-    const selectedCuisine = cuisine; // rename local variable to avoid conflict
-    const selectedMealType = mealType; // rename local variable to avoid conflict
-    const selectedServingSize = servingSize; // rename local variable to avoid conflict
-    const dietaryPreferences = 'gf,vf'; // or set default value if needed
-  
+
+    const ingredients = query;
+    const selectedCuisine = cuisine;
+    const selectedMealType = mealType;
+    const selectedServingSize = servingSize; 
+    const dietaryPreferences = 'gf,vf';
+
     try {
-      // Pass the individual parameters to generateRecipe
       const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
       console.log('API Response:', data);
-  
-      if (onSearch) {
-        onSearch(data);
-      }
+      router.push("/result" + "?" + createQueryString('recipe', JSON.stringify(data)));
+
     } catch (error) {
       console.error('Error fetching the recipe:', error);
     }
   };
 
   const handleKeyDown = (e) => {
-    if ( e.key === 'Enter') {
+    if (e.key === 'Enter') {
       e.preventDefault();
       handleSearch(e);
     }
@@ -61,7 +68,7 @@ export default function SearchBar({ onSearch }) {
                 className="w-full rounded-l-md border-2 border-black p-2"
                 placeholder="Enter Recipe name or ingredients.."
                 onChange={handleInputChange}
-                onKeyDown={handleKeyDown} // Replace onKeyPress with onKeyDown
+                onKeyDown={handleKeyDown}
               />
               <button
                 type="submit"

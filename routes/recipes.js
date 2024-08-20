@@ -80,17 +80,8 @@ router.post('/only', async (req, res) => {
     
     try {
         const recipeData = await generateRecipe(params);
-        // remove the ```json``` and newline characters from the response
         const cleanedData = recipeData.replace(/```json|```|\n/g, '');
         let parsedData = JSON.parse(cleanedData);
-
-
-        // // Add the image URL to the response
-        // const recipeImage = await getImageByTitle(parsedData.recipeImage);
-        // console.log('Recipe Image:', recipeImage);
-        // parsedData.recipeImage = recipeImage;
-
-        // console.log('Parsed Data:', parsedData);
         res.json(parsedData);
       
     } catch (error) {
