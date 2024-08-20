@@ -1,51 +1,6 @@
 'use client';
 
-import { useEffect, useState } from "react";
-
 export default function Home() {
-  const [ingredients, setIngredients] = useState([]);
-  const [inputValue, setInputValue] = useState("");
-
-  useEffect(() => {
-    fetch("/api").then(
-      res => res.json()
-    ).then(
-      data => {
-        setIngredients(data.ing);
-      }
-    );
-  }, []);
-
-  const handleAddIngredient = () => {
-    if (inputValue.trim() !== "") {
-      fetch("/api/add", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ ingredient: inputValue.trim() })
-      }).then(
-        res => res.json()
-      ).then(
-        data => {
-          setIngredients(data.ing);
-          setInputValue("");
-        }
-      );
-    }
-  };
-
-  const handleReset = () => {
-    fetch("/api/reset", {
-      method: "POST"
-    }).then(
-      res => res.json()
-    ).then(
-      data => {
-        setIngredients(data.ing);
-      }
-    );
-  };
 
   return (
 <div className="text-center font-sans p-5 bg-white">

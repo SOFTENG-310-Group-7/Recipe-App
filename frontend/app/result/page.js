@@ -21,7 +21,7 @@ export default function App() {
     // Fetch the recipes from the backend
     const fetchRecipes = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/generated-recipes');
+        const response = await fetch('http://localhost:5000/api/server/generated-recipes');
         if (!response.ok) {
           throw new Error(`HTTP error! status: ${response.status}`);
         }
@@ -35,12 +35,9 @@ export default function App() {
     fetchRecipes();
   }, []);
 
-  function handleViewButtonClick(recipe) {
-    // Serialize the recipe data
-    const serializedRecipe = encodeURIComponent(JSON.stringify(recipe));
-
-    // Navigate to the recipe-result page with serialized recipe data
-    router.push(`/recipe-result?recipe=${serializedRecipe}`);
+  async function handleViewButtonClick(recipe) {
+      const serializedRecipe = encodeURIComponent(JSON.stringify(recipe));
+      router.push(`/recipe-result?recipe=${serializedRecipe}`);
   }
 
   const renderCell = React.useCallback(

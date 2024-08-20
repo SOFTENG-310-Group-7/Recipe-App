@@ -32,7 +32,6 @@ export default function SearchBar() {
     e.preventDefault();
 
     if (!query.trim()) {
-      // If input is empty, show error and stop submission
       setInputError(true);
       return;
     }
@@ -43,21 +42,22 @@ export default function SearchBar() {
     const selectedServingSize = servingSize;
     const dietaryPreferences = 'none';
 
-    setLoading(true); // Set loading to true when the search starts
+    setLoading(true);
 
     try {
-      await fetch('http://localhost:5000/api/generated-recipes', {
+      // clear generated recipes in backend
+      await fetch('http://localhost:5000/api/server/generated-recipes', {
         method: 'DELETE',
       });
       const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
 
-      // store generated recipes in back end
-      const response = await fetch('http://localhost:5000/api/generated-recipes', {
+      // store generated recipes in backend
+      const response = await fetch('http://localhost:5000/api/server/generated-recipes', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ recipes: data }) // Adjust if the API expects a different structure
+        body: JSON.stringify({ recipes: data })
       });
 
       if (!response.ok) {

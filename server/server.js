@@ -3,15 +3,17 @@ const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const cors = require('cors');
 const recipeRoutes = require('../routes/recipes');
+const serverRoutes = require('../routes/server'); // Import the new routes file
 const connectDB = require('./db');
 
-const app = express(); 
+const app = express();
 dotenv.config({ path: './config.env' });
 
 app.use(cors());
 app.use(bodyParser.json());
 
 app.use('/api/recipes', recipeRoutes);
+app.use('/api/server', serverRoutes);
 
 // Connect to the database and start the server
 const startServer = async () => {
@@ -26,34 +28,5 @@ const startServer = async () => {
 };
 
 startServer();
-
-let generated_recipes = [];
-
-// Endpoint to see recipes
-app.get("/api", (req, res) => {
-    res.json({ generatedRecipes: generated_recipes });
-});
-
-// Endpoint to add generated recipes to the backend
-app.post("/api/generated-recipes", (req, res) => {
-    const { recipes } = req.body;
-
-    if (recipes && Array.isArray(recipes)) {
-        generated_recipes = recipes; // Replace existing recipes with the new ones
-        res.status(200).send({ message: 'Recipes stored successfully' });
-    } else {
-        res.status(400).send({ message: 'Invalid recipe data' });
-    }
-});
-
-// Endpoint to see recipes
-app.get("/api/generated-recipes", (req, res) => {
-    res.json({ generatedRecipes: generated_recipes });
-});
-
-app.delete("/api/generated-recipes", (req, res) => {
-    generated_recipes = []
-    res.json({ generatedRecipes: generated_recipes });
-})
 
 module.exports = app;
