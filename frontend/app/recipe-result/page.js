@@ -64,7 +64,8 @@ const styles = {
         alignItems: 'center',
         minHeight: '100vh',
         backgroundColor: 'white',
-        paddingTop: '100px'
+        paddingTop: '100px',
+        marginTop: '-130px'
     },
     recipeContainer: {
         display: 'grid',

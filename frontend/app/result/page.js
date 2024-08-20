@@ -12,6 +12,7 @@ import {
   Button,
 } from "@nextui-org/react";
 import { useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 
 // const randomColor = () => {
 //     const colors = ["primary", "success", "warning"];
@@ -23,6 +24,7 @@ import { useSearchParams } from "next/navigation";
 export default function App() {
   // Retrieve the "data" search parameter from the URL
   const searchParams = useSearchParams().get("data");
+  const router = useRouter();
   
   const recipeData = useMemo(() => {
     try {
@@ -32,6 +34,12 @@ export default function App() {
       return [];
     }
   }, [searchParams]);
+
+  function handleViewButtonClick(recipe) {
+
+    console.log("View button clicked for recipe:", recipe);
+    router.push('/recipe-result');
+  }
 
   const renderCell = React.useCallback(
     (recipe, columnKey) => {
@@ -69,7 +77,11 @@ export default function App() {
         case "actions":
           return (
             <div className="relative flex items-center gap-2">
-              <Button color="success" size="small">
+              <Button
+                  color="success"
+                  size="small"
+                  onClick={() => handleViewButtonClick(recipe)}
+              >
                 View
               </Button>
             </div>
