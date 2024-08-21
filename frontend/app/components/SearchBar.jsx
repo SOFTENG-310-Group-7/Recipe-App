@@ -48,6 +48,8 @@ export default function SearchBar() {
       await fetch('http://localhost:5000/api/server/generated-recipes', {
         method: 'DELETE',
       });
+
+      // call gemini to get recipes
       const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
 
       // store generated recipes in backend
