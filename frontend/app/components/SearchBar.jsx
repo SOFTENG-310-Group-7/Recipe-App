@@ -114,7 +114,7 @@ export default function SearchBar() {
                 className="bg-black text-white px-6 text-lg font-semibold py-2 rounded-r-md"
                 disabled={loading}
               >
-                {loading ? 'Loading...' : 'Go'}
+                {loading ? 'Loading' : 'Go'}
               </button>
             </div>
           </div>
