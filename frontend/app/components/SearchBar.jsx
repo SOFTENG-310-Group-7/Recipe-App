@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { useRouter } from 'next/navigation';
 import DropDown from './DropDown';
 import { generateRecipe } from '../lib/api';
@@ -12,6 +12,8 @@ export default function SearchBar() {
   const [cuisine, setCuisine] = useState('Any');
   const [loading, setLoading] = useState(false);
   const [inputError, setInputError] = useState(false); // State to track input error
+  const [loadingMessage, setLoadingMessage] = useState('Loading recipes, please wait');
+
 
   const router = useRouter();
 
@@ -28,6 +30,21 @@ export default function SearchBar() {
     if (label === 'Cuisine') setCuisine(option);
   };
 
+  useEffect(() => {
+    let timer;
+    if (loading) {
+      const messages = ['Loading recipes, please wait', 'Loading recipes, please wait.', 'Loading recipes, please wait..', 'Loading recipes, please wait...'];
+      let index = 0;
+      timer = setInterval(() => {
+        setLoadingMessage(messages[index]);
+        index = (index + 1) % messages.length;
+      }, 500); // Update message every 500ms
+    } else {
+      setLoadingMessage('Loading recipes, please wait');
+    }
+
+    return () => clearInterval(timer);
+  }, [loading]);
   const handleSearch = async (e) => {
     e.preventDefault();
 
@@ -35,7 +52,6 @@ export default function SearchBar() {
       setInputError(true);
       return;
     }
-
     const ingredients = query;
     const selectedCuisine = cuisine;
     const selectedMealType = mealType;
@@ -124,7 +140,7 @@ export default function SearchBar() {
       </div>
 
       {loading && (
-        <div className="mt-4 text-gray-600">Loading recipes, please wait...</div>
+        <div className="mt-4 text-gray-600">{loadingMessage}</div>
       )}
     </div>
   );
