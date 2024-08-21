@@ -27,13 +27,14 @@ export default function App() {
         }
         const data = await response.json();
         setRecipeData(data.generatedRecipes || []);
+        router.refresh();
       } catch (error) {
         console.error('Error fetching recipes:', error);
       }
     };
 
     fetchRecipes();
-  }, []);
+  });
 
   // send to recipe-result screen
   async function handleViewButtonClick(recipe) {

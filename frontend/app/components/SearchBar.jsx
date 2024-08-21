@@ -12,7 +12,6 @@ export default function SearchBar() {
   const [cuisine, setCuisine] = useState('Any');
   const [loading, setLoading] = useState(false);
   const [inputError, setInputError] = useState(false); // State to track input error
-
   const router = useRouter();
 
   const handleInputChange = (e) => {
@@ -64,6 +63,7 @@ export default function SearchBar() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
+      // Trigger a page refresh by updating the query parameter
       router.push('/result');
     } catch (error) {
       console.error('Error fetching or storing the recipe:', error);

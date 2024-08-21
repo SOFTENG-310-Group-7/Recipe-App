@@ -23,6 +23,7 @@ export async function generateRecipe(ingredients, cuisine, dietaryPreferences, m
         throw new Error(`Error: ${response.statusText}`);
       }
       const data = await response.json();
+
         // Add result-id to each recipe
         return data.map((recipe, index) => ({
             ...recipe,
