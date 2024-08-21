@@ -1,9 +1,12 @@
 'use client';
 
+import PopularCategories from "./components/PopularCategory";
+
 export default function Home() {
   return (
-<div className="text-center font-sans p-5 bg-white">
-    <h1>placeholder</h1>
+<div className="flex justify-center items-center">
+    <PopularCategories />
+    
 </div>
   );
 }
