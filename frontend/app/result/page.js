@@ -37,8 +37,15 @@ export default function App() {
 
   // send to recipe-result screen
   async function handleViewButtonClick(recipe) {
-      const serializedRecipe = encodeURIComponent(JSON.stringify(recipe));
-      router.push(`/recipe-result?recipe=${serializedRecipe}`);
+      // Ensure the recipe has a result-id
+      if (recipe['result-id'] === null || recipe['result-id'] === undefined) {
+          console.error('Recipe does not have a result-id');
+          return;
+      }
+
+      // Add the result-id as a query parameter
+      const resultId = recipe['result-id'];
+      router.push(`/recipe-result?result-id=${resultId}`);
   }
 
   const renderCell = React.useCallback(
