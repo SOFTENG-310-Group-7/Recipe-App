@@ -17,8 +17,8 @@ export default function App() {
     const [recipeData, setRecipeData] = useState([]);
     const router = useRouter();
 
+    // get the recipes from the backend
     useEffect(() => {
-        // Fetch the recipes from the backend
         const fetchRecipes = async () => {
             try {
                 const response = await fetch('http://localhost:5000/api/server/generated-recipes');
@@ -37,13 +37,12 @@ export default function App() {
 
     // send to recipe-result screen
     async function handleViewButtonClick(recipe) {
-        // Ensure the recipe has a result-id
         if (recipe['result-id'] === null || recipe['result-id'] === undefined) {
             console.error('Recipe does not have a result-id');
             return;
         }
 
-        // Add the result-id as a query parameter
+        // add resultId as query param
         const resultId = recipe['result-id'];
         router.push(`/recipe-result?result-id=${resultId}`);
     }

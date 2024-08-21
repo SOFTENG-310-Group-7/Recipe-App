@@ -48,7 +48,7 @@ export default function SearchBar() {
       // call gemini to get recipes
       const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
 
-      // clear generated recipes in backend
+      // clear generated recipes in backend | have to call this after the api call otherwise no recipe data is shown
       await fetch('http://localhost:5000/api/server/generated-recipes', {
         method: 'DELETE',
       });
@@ -66,7 +66,6 @@ export default function SearchBar() {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      // Trigger a page refresh by updating the query parameter
       router.push('/result');
     } catch (error) {
       console.error('Error fetching or storing the recipe:', error);

@@ -26,6 +26,7 @@ router.delete('/generated-recipes', (req, res) => {
     res.json({ generatedRecipes: generated_recipes });
 });
 
+// Endpoint to get a specific recipe
 router.get('/generated-recipes/:resultId', (req, res) => {
     console.log('Received request for recipe with resultId:', req.params.resultId);
 
