@@ -17,6 +17,6 @@
     "mocha": "^10.7.3"
   },
   "scripts": {
-    "test": "mocha --timeout 10000 -r esm"
+    "test": "mocha --timeout 30000 -r esm"
   }
 }

@@ -36,17 +36,36 @@ describe('generateRecipe', () => {
         };
 
         const response = {
-            text: () => 'Generated recipe'
+            text: () => JSON.stringify({
+                title: 'Recipe 1',
+                ingredients: ['Ingredient 1', 'Ingredient 2'],
+                detailedIngredients: ['Detailed Ingredient 1', 'Detailed Ingredient 2'],
+                cookingTime: '1 hour',
+                instructions: 'Step 1, Step 2',
+                recipeImage: 'recipe-image',
+                tags: ['tag1', 'tag2']
+            })
         };
 
         modelStub.returns(Promise.resolve({ response }));
+
         const recipe = await generateRecipe(params);
-        expect(recipe).to.equal('Generated recipe');
+
+        console.log(recipe);
+
+        // Check if recipe text starts as expected
+        expect(recipe).to.include('title');
+        expect(recipe).to.include('ingredients');
+        expect(recipe).to.include('detailedIngredients');
+        expect(recipe).to.include('cookingTime');
+        expect(recipe).to.include('instructions');
+        expect(recipe).to.include('recipeImage');
+        expect(recipe).to.include('tags');
     });
 
     it('should handle errors', async () => {
         const params = {
-            title: 'Recipe 1',
+            title: 1,
             ingredients: ['Ingredient 1', 'Ingredient 2'],
             detailedIngredients: ['Detailed Ingredient 1', 'Detailed Ingredient 2'],
             cookingTime: '1 hour',
@@ -63,5 +82,3 @@ describe('generateRecipe', () => {
         }
     });
 });
-
-

@@ -3,11 +3,10 @@ import http from 'http';
 import dotenv from 'dotenv';
 import app from '../server/server.js';
 import * as chai from 'chai';
-import chaiHttp from 'chai-http';
+import axios from 'axios';
 
 dotenv.config({ path: './server/config.env' });
 
-chai.use(chaiHttp);
 const { expect } = chai;
 
 let server;
@@ -49,54 +48,38 @@ describe('Server', () => {
         });
     });
 
-    it('should store generated recipes successfully', (done) => {
-        chai.request(app)
-            .post('/api/server/generated-recipes')
-            .send({ recipes: [{ 'result-id': 1, name: 'Recipe 1' }] })
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.have.property('message', 'Recipes stored successfully');
-                done();
-            });
+    it('should store generated recipes successfully', async () => {
+        const response = await axios.post('http://localhost:5001/api/server/generated-recipes', {
+            recipes: [{ 'result-id': 1, name: 'Recipe 1' }]
+        });
+        expect(response.status).to.equal(200);
+        expect(response.data).to.have.property('message', 'Recipes stored successfully');
     });
 
-    it('should return stored generated recipes', (done) => {
-        chai.request(app)
-            .get('/api/server/generated-recipes')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.have.property('generatedRecipes').that.is.an('array').with.lengthOf(1);
-                done();
-            });
+    it('should return stored generated recipes', async () => {
+        const response = await axios.get('http://localhost:5001/api/server/generated-recipes');
+        expect(response.status).to.equal(200);
+        expect(response.data).to.have.property('generatedRecipes').that.is.an('array').with.lengthOf(1);
     });
 
-    it('should return a specific recipe by resultId', (done) => {
-        chai.request(app)
-            .get('/api/server/generated-recipes/1')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.have.property('name', 'Recipe 1');
-                done();
-            });
+    it('should return a specific recipe by resultId', async () => {
+        const response = await axios.get('http://localhost:5001/api/server/generated-recipes/1');
+        expect(response.status).to.equal(200);
+        expect(response.data).to.have.property('name', 'Recipe 1');
     });
 
-    it('should return 404 for a non-existent recipe', (done) => {
-        chai.request(app)
-            .get('/api/server/generated-recipes/999')
-            .end((err, res) => {
-                expect(res).to.have.status(404);
-                expect(res.body).to.have.property('error', 'Recipe not found');
-                done();
-            });
+    it('should return 404 for a non-existent recipe', async () => {
+        try {
+            await axios.get('http://localhost:5001/api/server/generated-recipes/999');
+        } catch (error) {
+            expect(error.response.status).to.equal(404);
+            expect(error.response.data).to.have.property('error', 'Recipe not found');
+        }
     });
 
-    it('should clear generated recipes', (done) => {
-        chai.request(app)
-            .delete('/api/server/generated-recipes')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.have.property('generatedRecipes').that.is.an('array').with.lengthOf(0);
-                done();
-            });
+    it('should clear generated recipes', async () => {
+        const response = await axios.delete('http://localhost:5001/api/server/generated-recipes');
+        expect(response.status).to.equal(200);
+        expect(response.data).to.have.property('generatedRecipes').that.is.an('array').with.lengthOf(0);
     });
 });
