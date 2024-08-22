@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import pasta from '../../img/pasta.png';
@@ -20,21 +20,24 @@ const PopularCategories = () => {
   const [loading, setLoading] = useState(false);
   const [loadingMessage, setLoadingMessage] = useState('Loading recipes, please wait');
   const router = useRouter();
+  
+  // Reference to store interval ID
+  const intervalRef = useRef(null);
 
   useEffect(() => {
-    let timer;
     if (loading) {
       const messages = ['Loading recipes, please wait', 'Loading recipes, please wait.', 'Loading recipes, please wait..', 'Loading recipes, please wait...'];
       let index = 0;
-      timer = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         setLoadingMessage(messages[index]);
         index = (index + 1) % messages.length;
       }, 500);
     } else {
+      clearInterval(intervalRef.current);
       setLoadingMessage('Loading recipes, please wait');
     }
-
-    return () => clearInterval(timer);
+    
+    return () => clearInterval(intervalRef.current);
   }, [loading]);
 
   const handleCategoryClick = async (category) => {
@@ -48,12 +51,11 @@ const PopularCategories = () => {
     try {
       // Call the API to generate recipes based on the selected category
       const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
-
+      
       // Clear and store generated recipes in backend
       await fetch('http://localhost:5000/api/server/generated-recipes', {
         method: 'DELETE',
       });
-
       await fetch('http://localhost:5000/api/server/generated-recipes', {
         method: 'POST',
         headers: {
@@ -71,11 +73,16 @@ const PopularCategories = () => {
   };
 
   return (
-<div className="text-center mt-12">
+    <div className="text-center mt-12">
       <h2 className="text-3xl font-bold mb-8">Popular Categories</h2>
+      {loading && (
+        <div className="loading-message">
+          {loadingMessage}
+        </div>
+      )}
       <div className="flex flex-wrap justify-center gap-8">
         {categories.map((category, index) => (
-          <div key={index} className="flex flex-col items-center"  onClick={() => handleCategoryClick(category)}>
+          <div key={index} className="flex flex-col items-center" onClick={() => handleCategoryClick(category)}>
             <div className="w-24 h-24 rounded-full overflow-hidden shadow-lg cursor-pointer">
               <Image
                 src={category.img}
@@ -92,6 +99,5 @@ const PopularCategories = () => {
     </div>
   );
 };
-
 
 export default PopularCategories;
