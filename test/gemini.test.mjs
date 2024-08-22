@@ -24,7 +24,7 @@ describe('generateRecipe', () => {
         modelStub.restore();
     });
 
-    it('should generate a recipe', async () => {
+    it('should generate recipes', async () => {
         const params = {
             title: 'Recipe 1',
             ingredients: ['Ingredient 1', 'Ingredient 2'],
