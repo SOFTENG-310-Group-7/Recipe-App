@@ -24,4 +24,13 @@ describe('Database Connection', () => {
             throw new Error('Failed to connect to the database');
         }
     });
+
+    it('should handle errors', async () => {
+        try {
+            // Checking connection to the database
+            await connectDB('invalid-url');
+        } catch (error) {
+            expect(error).to.be.an('error');
+        }
+    });
 });
