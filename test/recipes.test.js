@@ -102,11 +102,6 @@ describe('Recipes API', () => {
         req.end();
     });
 
-   
-
-            
-
-
     it('should get a specific recipe', (done) => {
         http.get(`http://localhost:5001/api/recipes/${recipeId}`, (res) => {
             expect(res.statusCode).to.equal(200);
@@ -124,59 +119,54 @@ describe('Recipes API', () => {
         });
     });
 
-    it('should delete a specific recipe', (done) => {
-        const options = {
-            hostname: 'localhost',
-            port: 5001,
-            path: `/api/recipes/${recipeId}`,
-            method: 'DELETE'
-        };
+    const deleteRequest = (path) => {
+        return new Promise((resolve, reject) => {
+            const options = {
+                hostname: 'localhost',
+                port: 5001,
+                path: path,
+                method: 'DELETE'
+            };
 
-        const req = http.request(options, (res) => {
-            expect(res.statusCode).to.equal(200);
-            let data = '';
-            res.on('data', (chunk) => {
-                data += chunk;
+            const req = http.request(options, (res) => {
+                expect(res.statusCode).to.equal(200);
+                let data = '';
+                res.on('data', (chunk) => {
+                    data += chunk;
+                });
+                res.on('end', () => {
+                    const response = JSON.parse(data);
+                    resolve(response);
+                });
             });
-            res.on('end', () => {
-                const response = JSON.parse(data);
+
+            req.on('error', (err) => {
+                reject(err);
+            });
+
+            req.end();
+        });
+    };
+
+    it('should delete a specific recipe', (done) => {
+        deleteRequest(`/api/recipes/${recipeId}`)
+            .then((response) => {
                 expect(response).to.have.property('message', 'Recipe deleted');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
-        });
-
-        req.on('error', (err) => {
-            done(err);
-        });
-
-        req.end();
     });
 
     it('should delete all recipes', (done) => {
-        const options = {
-            hostname: 'localhost',
-            port: 5001,
-            path: '/api/recipes',
-            method: 'DELETE'
-        };
-
-        const req = http.request(options, (res) => {
-            expect(res.statusCode).to.equal(200);
-            let data = '';
-            res.on('data', (chunk) => {
-                data += chunk;
-            });
-            res.on('end', () => {
-                const response = JSON.parse(data);
+        deleteRequest('/api/recipes')
+            .then((response) => {
                 expect(response).to.have.property('message', 'All recipes deleted');
                 done();
+            })
+            .catch((err) => {
+                done(err);
             });
-        });
-
-        req.on('error', (err) => {
-            done(err);
-        });
-
-        req.end();
     });
 });
