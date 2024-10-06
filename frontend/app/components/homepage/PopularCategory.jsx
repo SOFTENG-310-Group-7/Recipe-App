@@ -76,7 +76,7 @@ const PopularCategories = () => {
             onClick={() => handleCategoryClick(category)}
             aria-label={`Select ${category.title} category`}
           >
-            <div className="w-24 h-24 rounded-full overflow-hidden shadow-lg">
+            <div className="w-24 h-24 rounded-full overflow-hidden shadow-lg text-black">
               <Image
                 src={category.img}
                 alt={category.title}
