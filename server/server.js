@@ -15,14 +15,36 @@ app.use(bodyParser.json());
 app.use('/api/recipes', recipeRoutes);
 app.use('/api/server', serverRoutes);
 
+// Maximum number of ports to try
+const MAX_PORT_TRIES = 10;
+
 // Connect to the database and start the server
-const startServer = async () => {
+const startServer = async (port = 5000, retries = 0) => {
     try {
         const db = await connectDB();
         app.locals.db = db;
-        app.listen(5000, () => console.log('Server is running on port 5000.'));
+
+        const server = app.listen(port, () => {
+            console.log(`Server is running on port ${port}.`);
+        });
+
+        server.on('error', async (error) => {
+            if (error.code === 'EADDRINUSE') {
+                if (retries < MAX_PORT_TRIES) {
+                    console.log(`Port ${port} is in use, trying port ${port + 1}...`);
+                    await startServer(port + 1, retries + 1);
+                } else {
+                    console.error(`All ports from ${port - retries} to ${port} are in use.`);
+                    process.exit(1);
+                }
+            } else {
+                console.error('Failed to start the server', error);
+                process.exit(1);
+            }
+        });
+
     } catch (error) {
-        console.error('Failed to start the server', error);
+        console.error('Failed to connect to the database', error);
         process.exit(1);
     }
 };
