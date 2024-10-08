@@ -81,4 +81,38 @@ describe('generateRecipe', () => {
             expect(error).to.be.an('error');
         }
     });
+
+    it('should exclude inedible items such as rock', async () => {
+        const params = {
+            title: 'Recipe 2',
+            ingredients: ['rock', 'chicken'],
+            detailedIngredients: ['rock', 'chicken'],
+            cookingTime: '30 minutes',
+            instructions: 'Step 1, Step 2',
+            recipeImage: 'recipe-image-2',
+            tags: ['tag1', 'tag2']
+        };
+
+        const response = {
+            text: () => JSON.stringify({
+                title: 'Recipe 2',
+                ingredients: ['chicken'],
+                detailedIngredients: ['chicken'],
+                cookingTime: '30 minutes',
+                instructions: 'Step 1, Step 2',
+                recipeImage: 'recipe-image-2',
+                tags: ['tag1', 'tag2']
+            })
+        };
+
+        modelStub.returns(Promise.resolve({ response }));
+
+        const recipe = await generateRecipe(params);
+
+        console.log(recipe);
+
+        // check that rock is not in the returned ingredients
+        expect(recipe).to.not.include('rock');
+        expect(recipe).to.include('chicken');
+    });
 });
