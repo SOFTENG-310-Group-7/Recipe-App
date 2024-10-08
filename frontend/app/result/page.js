@@ -12,11 +12,23 @@ import {
     Button,
 } from "@nextui-org/react";
 import { useRouter } from "next/navigation";
+import MobileResult from "./MobileResult";
 
 // http://localhost:3000/result
 export default function App() {
     const [recipeData, setRecipeData] = useState([]);
     const router = useRouter();
+    const [isMobile, setIsMobile] = useState(false);
+
+    
+    useEffect(() => {
+        const updateMedia = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        updateMedia();
+        window.addEventListener('resize', updateMedia);
+        return () => window.removeEventListener('resize', updateMedia);
+    }, []);
 
     // get the recipes from the backend
     useEffect(() => {
@@ -130,12 +142,21 @@ export default function App() {
         []
     );
 
+    const styles = {
+        tableView: {
+            display: isMobile ? 'none' : 'block',
+        },
+        mobileView: {
+            display: isMobile ? 'block' : 'none',
+        },
+    };
     // Render the table only if the recipe data is available
     return recipeData.length > 0 ? (
-        <Table
-            aria-label="Recipe Details"
-            className="w-4/5 mx-auto mt-6 shadow-lg rounded-lg border border-gray-200"
-        >
+        <div>
+            <div style={styles.tableView}><Table
+                aria-label="Recipe Details"
+                className="w-4/5 mx-auto mt-6 shadow-lg rounded-lg border border-gray-200"
+            >
             <TableHeader>
                 <TableColumn key="recipe" align="start">
                     <span className="font-semibold text-lg text-gray-700">Recipe</span>
@@ -161,6 +182,19 @@ export default function App() {
                 ))}
             </TableBody>
         </Table>
+    </div>
+    <div style={styles.mobileView}>
+        <div className="flex flex-col items-center w-full mt-6 gap-9">
+            {recipeData.map((recipe) => (
+                <MobileResult
+                    key={recipe['result-id']}
+                    recipe={recipe}
+                    onButtonClick={() => handleViewButtonClick(recipe)}
+                />
+            ))}
+        </div>
+    </div>
+    </div>
     ) : (
         <div className="w-4/5 mx-auto mt-6">
             <p className="text-center text-gray-500">No recipe data available.</p>

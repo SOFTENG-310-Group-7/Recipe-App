@@ -72,11 +72,11 @@ const PopularCategories = () => {
         {categories.map((category) => (
           <button
             key={category.title} // Use a unique key
-            className="flex flex-col items-center p-2 border border-transparent rounded-md shadow-sm cursor-pointer hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-purple-500"
+            className="flex flex-col items-center md:p-2 p-5 border border-transparent rounded-md shadow-lg cursor-pointer duration-200 hover:bg-gray-100 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-purple-500"
             onClick={() => handleCategoryClick(category)}
             aria-label={`Select ${category.title} category`}
           >
-            <div className="w-24 h-24 rounded-full overflow-hidden shadow-lg text-black">
+            <div className="w-36 h-36 md:w-24 md:h-24 rounded-full overflow-hidden shadow-lg">
               <Image
                 src={category.img}
                 alt={category.title}
@@ -85,7 +85,7 @@ const PopularCategories = () => {
                 className="object-cover w-full h-full"
               />
             </div>
-            <p className="mt-4 text-lg font-medium text-black">{category.title}</p>
+            <p className="mt-4 text-2xl md:text-lg font-medium text-black">{category.title}</p>
           </button>
         ))}
       </div>

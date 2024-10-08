@@ -8,7 +8,7 @@ export default function RecipeInstructions({ instructions, cookingTime }) {
         <CardBody className="p-4">
             <div className="flex items-center mb-2">
                 <h3 className="text-xl font-bold font-serif mr-4 mb-0">Recipe Instructions</h3>
-                {cookingTime && <span className="text-gray-600 text-sm">({cookingTime})</span>}
+                {cookingTime && <span className="text-gray-600 text-sm">{cookingTime}</span>}
             </div>
             <div className="overflow-auto max-h-[calc(100%_-_40px)]">
                 <ol className="list-decimal pl-4 font-serif">

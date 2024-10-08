@@ -12,6 +12,18 @@ import { useRouter, useSearchParams } from 'next/navigation';
 export default function RecipePage() {
     const [recipe, setRecipe] = useState(null);
     const searchParams = useSearchParams();
+    const [isMobile, setIsMobile] = useState(false);
+
+    
+
+    useEffect(() => {
+        const updateMedia = () => {
+            setIsMobile(window.innerWidth <= 768);
+        };
+        updateMedia();
+        window.addEventListener('resize', updateMedia);
+        return () => window.removeEventListener('resize', updateMedia);
+    }, []);
 
     // get specific recipe from backend
     useEffect(() => {
@@ -48,55 +60,76 @@ export default function RecipePage() {
         console.log("Recipe saved!");
     };
 
+    const styles = {
+        pageContainer: {
+            display: isMobile ? 'none' : 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            minHeight: '100vh',
+            backgroundColor: 'white',
+            paddingTop: '100px',
+            marginTop: '-130px',
+        },
+        recipeContainer: {
+            display: 'grid',
+            gridTemplateColumns: '1fr 3fr',
+            gap: '10px',
+            maxWidth: '1200px',
+            maxHeight: '800px',
+            width: '80%',
+            borderRadius: '12px',
+            padding: '10px',
+            height: '70vh',
+            border: '2px solid #6D28D9',
+        },
+        leftSide: {
+            display: 'flex',
+            flexDirection: 'column',
+            gap: '10px',
+        },
+        rightSide: {
+            display: 'flex',
+            flexDirection: 'column',
+            maxHeight: '400px',
+            border: '2px solid #f0f0f0',
+            borderRadius: '8px',
+        },
+        mobileView: {
+            display: isMobile ? 'block' : 'none',
+        }
+    };
+
     return (
-        <div style={styles.pageContainer}>
-            <Card style={styles.recipeContainer}>
-                <div style={styles.leftSide}>
-                    <RecipeImage src={recipe.recipeImage} alt="Recipe Image" />
-                    <Ingredients ingredients={recipe.detailedIngredients} />
+        <div>
+            <div style={styles.pageContainer}>
+                <Card style={styles.recipeContainer}>
+                    <div style={styles.leftSide}>
+                        <RecipeImage src={recipe.recipeImage} alt="Recipe Image" />
+                        <Ingredients ingredients={recipe.detailedIngredients} />
+                    </div>
+                    <div style={styles.rightSide}>
+                        <RecipeHeader title={recipe.title} onSave={handleSaveRecipe} />
+                        <Divider />
+                        <RecipeInstructions instructions={recipe.instructions} cookingTime={recipe.cookingTime} />
+                    </div>   
+                </Card>
+            </div>
+            <div style={styles.mobileView}>
+                <div className="w-full flex justify-center items-center mb-4">
+                    <Card className="w-[90%] gap-3">
+                        <RecipeHeader title={recipe.title} onSave={handleSaveRecipe} />
+                        <Divider/>
+                        <div className="flex items-center justify-center w-[70%] mx-auto">
+                            <RecipeImage src={recipe.recipeImage} alt="Recipe Image" className="object-cover w-full h-auto max-w-full"/>
+                        </div>
+                        <div className="flex items-center justify-center w-full mx-auto">
+                            <Ingredients ingredients={recipe.detailedIngredients} />
+                        </div>
+                        <RecipeInstructions instructions={recipe.instructions} cookingTime={recipe.cookingTime} />
+                    </Card>
                 </div>
-                <div style={styles.rightSide}>
-                    <RecipeHeader title={recipe.title} onSave={handleSaveRecipe} />
-                    <Divider />
-                    <RecipeInstructions instructions={recipe.instructions} cookingTime={recipe.cookingTime} />
-                </div>
-            </Card>
+            </div>
         </div>
     );
 }
 
-const styles = {
-    pageContainer: {
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        minHeight: '100vh',
-        backgroundColor: 'white',
-        paddingTop: '100px',
-        marginTop: '-130px'
-    },
-    recipeContainer: {
-        display: 'grid',
-        gridTemplateColumns: '1fr 3fr',
-        gap: '10px',
-        maxWidth: '1200px',
-        maxHeight: '800px',
-        width: '70%',
-        borderRadius: '12px',
-        padding: '10px',
-        height: '70vh',
-        border: '2px solid #6D28D9'
-    },
-    leftSide: {
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '10px',
-    },
-    rightSide: {
-        display: 'flex',
-        flexDirection: 'column',
-        maxHeight: '400px',
-        border: '2px solid #f0f0f0',
-        borderRadius: '8px'
-    },
-};

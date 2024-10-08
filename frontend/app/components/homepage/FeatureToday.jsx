@@ -29,7 +29,7 @@ const FeaturedToday = () => {
         {featuredRecipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="border border-black p-4 w-72 rounded-md shadow-sm cursor-pointer"
+            className="border border-black p-4 w-72 rounded-md shadow-sm cursor-pointer duration-200 hover:scale-105"
           >
             <h3 className="text-xl font-semibold mb-2 text-black">{recipe.title}</h3>
             <p className="mb-2 text-black">
