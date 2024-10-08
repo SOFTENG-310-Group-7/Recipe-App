@@ -66,12 +66,76 @@ PEXELS_API_KEY=<your-api-key>
 ```
 3. Save your changes and you're good to go!
 
+## Help with Running the Project
+
+To run the project, follow these steps:
+
+### Install Dependencies
+
+1. Install dependencies in the root folder:
+
+```
+npm install
+```
+
+2. Install dependencies in the server folder:
+
+Run in root folder.
+
+```
+cd server
+npm install
+```
+
+3. Install dependencies in the frontend folder:
+
+Run in root folder.
+
+```
+cd frontend
+npm install
+```
+
+### Run the Backend
+
+After install all dependencies, you need to run the backend server:
+
+1. Go to the server folder (run in root folder): 
+
+```
+cd server
+```
+
+2. Start the server:
+
+```
+npm run dev
+```
+
+### Run the Frontend
+
+In another terminal window (or the equivalent on your system), you need to run the frontend:
+
+1. Go to the frontend folder (run in root folder):
+
+```
+cd frontend
+```
+
+2. Start the frontend:
+
+```
+npm run dev
+```
+
 # Tests
 
 To run tests To run the tests first install new dependencies and then run 'npm test' in the command line at the root of the project. You should see 18 tests passed, as in the image below.
+
 ![test-image](utils/test-image.png)
 
 If you get timeouts on the test, you can increase the specific timeout threshold in the outermost (project root) package.json (30000 ms currently).
+
 ![timeout](utils/timeout.png)
 
 # Usage
