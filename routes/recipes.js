@@ -111,12 +111,12 @@ router.post('/generate-image', async (req, res) => {
 });
 
 router.post('/generate-recipes', async (req, res) => {
-    const { ingredients, cuisine, dietaryPreferences, mealType, servings } = req.body;
+    const { ingredients, cuisine, dietaryRestriction, mealType, servings } = req.body;
 
     const params = {
         ingredients: ingredients,
         cuisine: cuisine,
-        dietaryPreferences: dietaryPreferences,
+        dietaryRestriction: dietaryRestriction,
         mealType: mealType,
         servings: servings
     };

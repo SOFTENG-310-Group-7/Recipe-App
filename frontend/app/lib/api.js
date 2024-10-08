@@ -1,9 +1,9 @@
-export async function generateRecipe(ingredients, cuisine, dietaryPreferences, mealType, servings) {
+export async function generateRecipe(ingredients, cuisine, dietaryRestriction, mealType, servings) {
     // Construct the recipeData object in JSON format
     const recipeData = {
       ingredients,
       cuisine,
-      dietaryPreferences,
+      dietaryRestriction,
       mealType,
       servings
     };

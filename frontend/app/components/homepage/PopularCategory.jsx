@@ -41,11 +41,11 @@ const PopularCategories = () => {
     const selectedCuisine = category.cuisine;
     const selectedMealType = category.title;
     const selectedServingSize = 'Any';
-    const dietaryPreferences = 'none';
+    const dietaryRestriction = 'none';
     const ingredients = 'Any';
     try {
       // Call the API to generate recipes based on the selected category
-      const data = await generateRecipe(ingredients, selectedCuisine, dietaryPreferences, selectedMealType, selectedServingSize);
+      const data = await generateRecipe(ingredients, selectedCuisine, dietaryRestriction, selectedMealType, selectedServingSize);
       // Clear and store generated recipes in backend
       await fetch('http://localhost:5000/api/server/generated-recipes', {
         method: 'DELETE',

@@ -1,44 +1,64 @@
-import React from 'react';
+import React from "react";
+import RecipeCard from "./RecipeCard";
 
+/**
+ * Array of featured recipe objects, each containing an ID, title, ingredients,
+ * and cook time.
+ *
+ * @constant {Array<Object>}
+ * @property {string} id - Unique identifier for the recipe.
+ * @property {string} title - The title of the recipe.
+ * @property {string} ingredients - The ingredients required for the recipe.
+ * @property {string} cookTime - The time it takes to cook the recipe.
+ */
 const featuredRecipes = [
   {
-    id: '1', 
-    title: 'Creamy Garlic Parmesan Pasta',
-    ingredients: 'pasta, butter, cheese...',
-    cookTime: '15 - 30 minutes',
+    id: "1",
+    title: "Creamy Garlic Parmesan Pasta",
+    ingredients: "pasta, butter, cheese...",
+    cookTime: "15 - 30 minutes",
   },
   {
-    id: '2',
-    title: 'Spicy Honey Glazed Chicken',
-    ingredients: 'chicken, honey, olive oil',
-    cookTime: '45 minutes',
+    id: "2",
+    title: "Spicy Honey Glazed Chicken",
+    ingredients: "chicken, honey, olive oil",
+    cookTime: "45 minutes",
   },
   {
-    id: '3',
-    title: 'Stir-Fry Tofu',
-    ingredients: 'tofu, vege...',
-    cookTime: '15 - 30 minutes',
+    id: "3",
+    title: "Stir-Fry Tofu",
+    ingredients: "tofu, vege...",
+    cookTime: "15 - 30 minutes",
   },
 ];
 
+/**
+ * FeaturedToday Component
+ *
+ * This component renders a section displaying featured recipes for the day.
+ * It uses the `RecipeCard` component to display the title, ingredients, and
+ * cook time of each featured recipe. The recipes are displayed in a flex layout
+ * that is responsive and has hover animations.
+ *
+ * @component
+ *
+ * @returns {JSX.Element} A section of featured recipes for the day.
+ *
+ */
 const FeaturedToday = () => {
   return (
     <section className="mt-12">
-      <h2 className="text-3xl font-bold text-center mb-8 text-black">Featured Today</h2>
+      <h2 className="text-3xl font-bold text-center mb-8 text-black">
+        Featured Today
+      </h2>
       <div className="flex justify-center gap-6 flex-wrap">
         {featuredRecipes.map((recipe) => (
-          <div
+          <RecipeCard
             key={recipe.id}
-            className="border border-black p-4 w-72 rounded-md shadow-sm cursor-pointer duration-200 hover:scale-105"
-          >
-            <h3 className="text-xl font-semibold mb-2 text-black">{recipe.title}</h3>
-            <p className="mb-2 text-black">
-              <span className="font-semibold ">Ingredients:</span> {recipe.ingredients}
-            </p>
-            <p className="text-black">
-              <span className="font-semibold text-black">Cook time:</span> {recipe.cookTime}
-            </p>
-          </div>
+            title={recipe.title}
+            ingredients={recipe.ingredients}
+            cookTime={recipe.cookTime}
+          />
         ))}
       </div>
     </section>

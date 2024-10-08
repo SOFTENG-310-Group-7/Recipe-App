@@ -7,6 +7,7 @@ import Ingredients from './Ingredients';
 import RecipeHeader from './RecipeHeader';
 import RecipeInstructions from './RecipeInstructions';
 import { useRouter, useSearchParams } from 'next/navigation';
+import Share from './Share';
 
 // http:localhost:3000/recipe-result
 export default function RecipePage() {
@@ -15,7 +16,6 @@ export default function RecipePage() {
     const [isMobile, setIsMobile] = useState(false);
 
     
-
     useEffect(() => {
         const updateMedia = () => {
             setIsMobile(window.innerWidth <= 768);
@@ -112,6 +112,9 @@ export default function RecipePage() {
                         <Divider />
                         <RecipeInstructions instructions={recipe.instructions} cookingTime={recipe.cookingTime} />
                     </div>   
+                    <div>
+                    <Share instructions={recipe.instructions} ingredients={recipe.detailedIngredients} title={recipe.title} recipeId={searchParams.get('result-id')} />
+                </div>
                 </Card>
             </div>
             <div style={styles.mobileView}>
@@ -128,8 +131,7 @@ export default function RecipePage() {
                         <RecipeInstructions instructions={recipe.instructions} cookingTime={recipe.cookingTime} />
                     </Card>
                 </div>
-            </div>
+        </div>
         </div>
     );
 }
-
