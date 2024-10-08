@@ -77,7 +77,6 @@ export default function Header() {
           )}
         </div>
       </div>
-
       {/* Mobile Menu Options */}
       {isMenuOpen && (
         <div className="md:hidden">
@@ -116,7 +115,6 @@ export default function Header() {
           )}
         </div>
       )}
-
       {isLoginModalOpen && (
         <LoginModal onClose={() => setIsLoginModalOpen(false)} />
       )}
