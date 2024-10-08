@@ -9,13 +9,16 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "cors": "^2.8.5",
-    "font-awesome-icons": "^1.6.0",
     "@nextui-org/card": "^2.0.33",
     "@nextui-org/react": "^2.4.6",
     "@nextui-org/system": "^2.2.5",
     "@nextui-org/theme": "^2.2.9",
+    "bcryptjs": "^2.4.3",
+    "cookie": "^0.7.2",
+    "cors": "^2.8.5",
+    "font-awesome-icons": "^1.6.0",
     "framer-motion": "^11.3.28",
+    "jsonwebtoken": "^9.0.2",
     "next": "^14.2.5",
     "react": "^18",
     "react-dom": "^18",

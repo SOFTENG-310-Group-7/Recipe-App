@@ -2,7 +2,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import SearchBar from "./components/SearchBar";
-import { Provider } from "./provider";
+import ClientProvider from "./components/ClientProvider"; // Import ClientProvider
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -15,13 +15,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+        <ClientProvider>
           <div className="bg-white">
             <Header />
             <div>
-              <SearchBar/>
+              <SearchBar />
             </div>
             {children}
           </div>
+        </ClientProvider>
       </body>
     </html>
   );
