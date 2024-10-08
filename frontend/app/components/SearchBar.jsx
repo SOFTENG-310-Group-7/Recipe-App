@@ -46,6 +46,7 @@ export default function SearchBar() {
 
     return () => clearInterval(timer);
   }, [loading]);
+
   const handleSearch = async (e) => {
     e.preventDefault();
 
@@ -53,6 +54,7 @@ export default function SearchBar() {
       setInputError(true);
       return;
     }
+
     const ingredients = query;
     const selectedCuisine = cuisine;
     const selectedMealType = mealType;
