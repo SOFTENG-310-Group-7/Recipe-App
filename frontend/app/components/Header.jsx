@@ -61,7 +61,7 @@ export default function Header() {
           {user ? (
             <>
               <button
-                className="bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700"
+                className="bg-purple-699 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700"
                 onClick={handleLogout}
               >
                 Logout
