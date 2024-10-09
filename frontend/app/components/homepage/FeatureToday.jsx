@@ -1,5 +1,6 @@
 import React from "react";
 import RecipeCard from "./RecipeCard";
+import {useRouter} from "next/navigation";
 
 /**
  * Array of featured recipe objects, each containing an ID, title, ingredients,
@@ -812,6 +813,12 @@ const getFeaturedRecipesForToday = () => {
  */
 const FeaturedToday = () => {
   const recipesToShow = getFeaturedRecipesForToday();
+  const router = useRouter();
+
+  // handle recipe click
+  const handleRecipeClick = (id) => {
+    router.push(`/recipe-result?result-id=${id}`);
+  };
 
   return (
       <section className="mt-12">
