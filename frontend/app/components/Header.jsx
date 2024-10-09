@@ -7,6 +7,7 @@ import LoginModal from './LoginModal';
 import { AuthContext } from '../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 
+
 export default function Header() {
   const savedOptionRef = useRef(null);
   const aboutOptionRef = useRef(null);
@@ -31,6 +32,7 @@ export default function Header() {
     });
   };
 
+
   const hamburgerClick = () => {
     setIsMenuOpen((prev) => !prev);
     if (savedOptionRef.current && aboutOptionRef.current) {
@@ -48,9 +50,22 @@ export default function Header() {
     setUser(null);
   };
 
+
+  // Function to handle "Saved Recipes" click
+  const handleSavedRecipesClick = () => {
+    if (user) {
+      // If user is logged in, navigate to saved recipes page
+      router.push('/saved-recipes');
+    } else {
+      // If user is not logged in, show login modal or alert
+      setIsLoginModalOpen(true);
+    }
+  };
+
   const handleAbout = () => {
     router.push('/about');
   }
+
 
   return (
     <div>
@@ -80,7 +95,11 @@ export default function Header() {
         {darkMode ? 'Light Mode' : 'Dark Mode'}
       </button>
         <div className="space-x-4 hidden md:block">
-          <button className="bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700">
+          {/* Updated Saved Recipes button */}
+          <button
+            onClick={handleSavedRecipesClick}  // Call the new handler here
+            className="bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700"
+          >
             Saved Recipes
           </button>
           <button className="bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700"
@@ -114,9 +133,12 @@ export default function Header() {
             ref={savedOptionRef}
             className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left"
           >
-            Saved Recipes
-          </button>
-          <button
+            {/* Updated Saved Recipes button */}
+            <button onClick={handleSavedRecipesClick} className="w-full">
+              Saved Recipes
+            </button>
+          </div>
+          <div
             id="about-option"
             ref={aboutOptionRef}
             className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left"
