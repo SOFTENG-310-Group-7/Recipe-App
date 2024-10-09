@@ -66,6 +66,15 @@ PEXELS_API_KEY=<your-api-key>
 ```
 3. Save your changes and you're good to go!
 
+### JWT
+Follow the instructions [here](https://community.auth0.com/t/how-can-i-get-this-jwt-secret-key/124581)
+
+1. Under `frontend/env.local`replace the following field with your newly generated API key:
+```
+JWT_SECRET=<your-api-key>
+```
+2. Save your changes and you're good to go!
+
 ## Help with Running the Project
 
 To run the project, follow these steps:
