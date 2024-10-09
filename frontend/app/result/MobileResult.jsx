@@ -18,7 +18,7 @@ const MobileResult = ({recipe, onButtonClick}) => {
                         </div>
                     ))}
                 </div>
-                <div className="flex flex-row justify-between gap-3 items-center w-full">
+                <div className="flex flex-row justify-between gap-3 items-center w-[90%]">
                     <p className="text-sm text-default-600">
                         {Array.isArray(recipe.ingredients) ? recipe.ingredients.join(", ") : "N/A"}
                     </p>
