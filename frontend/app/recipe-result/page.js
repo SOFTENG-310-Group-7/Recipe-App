@@ -68,18 +68,18 @@ export default function RecipePage() {
             minHeight: '100vh',
             backgroundColor: 'white',
             paddingTop: '100px',
-            marginTop: '-130px',
+            marginTop: '-90px',
+            overflow: 'auto',
         },
         recipeContainer: {
             display: 'grid',
             gridTemplateColumns: '1fr 3fr',
             gap: '10px',
             maxWidth: '1200px',
-            maxHeight: '800px',
+            height: 'auto',
             width: '80%',
             borderRadius: '12px',
             padding: '10px',
-            height: '70vh',
             border: '2px solid #6D28D9',
         },
         leftSide: {
@@ -90,7 +90,7 @@ export default function RecipePage() {
         rightSide: {
             display: 'flex',
             flexDirection: 'column',
-            maxHeight: '400px',
+            maxHeight: '500px',
             border: '2px solid #f0f0f0',
             borderRadius: '8px',
         },
@@ -106,15 +106,13 @@ export default function RecipePage() {
                     <div style={styles.leftSide}>
                         <RecipeImage src={recipe.recipeImage} alt="Recipe Image" />
                         <Ingredients ingredients={recipe.detailedIngredients} />
+                        <Share instructions={recipe.instructions} ingredients={recipe.detailedIngredients} title={recipe.title} recipeId={searchParams.get('result-id')} />
                     </div>
                     <div style={styles.rightSide}>
                         <RecipeHeader title={recipe.title} onSave={handleSaveRecipe} />
                         <Divider />
                         <RecipeInstructions instructions={recipe.instructions} cookingTime={recipe.cookingTime} />
                     </div>   
-                    <div>
-                    <Share instructions={recipe.instructions} ingredients={recipe.detailedIngredients} title={recipe.title} recipeId={searchParams.get('result-id')} />
-                </div>
                 </Card>
             </div>
             <div style={styles.mobileView}>
@@ -129,6 +127,7 @@ export default function RecipePage() {
                             <Ingredients ingredients={recipe.detailedIngredients} />
                         </div>
                         <RecipeInstructions instructions={recipe.instructions} cookingTime={recipe.cookingTime} />
+                        <Share instructions={recipe.instructions} ingredients={recipe.detailedIngredients} title={recipe.title} recipeId={searchParams.get('result-id')} />
                     </Card>
                 </div>
         </div>
