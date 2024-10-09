@@ -24,6 +24,7 @@ import React from "react";
  * />
  */
 const RecipeCard = ({ title, ingredients, cookTime }) => {
+  // HTML structure for the RecipeCard component
   return (
     <div className="border border-black p-4 w-72 rounded-md shadow-sm cursor-pointer duration-200 hover:scale-105">
       <h3 className="text-xl font-semibold mb-2 text-black">{title}</h3>

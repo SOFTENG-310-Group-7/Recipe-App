@@ -1,11 +1,23 @@
 "use client";
 
-import Link from 'next/link';
-import './header.css';
-import { useRef, useState, useContext } from 'react';
-import LoginModal from './LoginModal';
-import { AuthContext } from '../contexts/AuthContext';
+import Link from "next/link";
+import "./header.css";
+import { useRef, useState, useContext } from "react";
+import LoginModal from "./LoginModal";
+import { AuthContext } from "../contexts/AuthContext";
 
+/**
+ *
+ * Header Component
+ *
+ * This component renders the header of the application, which includes the
+ * application name, navigation links, and a login/register button.
+ * The header is responsive and has a mobile menu option.
+ *
+ * @Component
+ *
+ * @returns {JSX.Element} The header component for the application.
+ */
 export default function Header() {
   const savedOptionRef = useRef(null);
   const aboutOptionRef = useRef(null);
@@ -13,23 +25,26 @@ export default function Header() {
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { user, setUser } = useContext(AuthContext);
 
+  // Function to toggle the mobile menu
   const hamburgerClick = () => {
     setIsMenuOpen((prev) => !prev);
     if (savedOptionRef.current && aboutOptionRef.current) {
       savedOptionRef.current.style.display =
-        savedOptionRef.current.style.display === 'block' ? 'none' : 'block';
+        savedOptionRef.current.style.display === "block" ? "none" : "block";
       aboutOptionRef.current.style.display =
-        aboutOptionRef.current.style.display === 'block' ? 'none' : 'block';
+        aboutOptionRef.current.style.display === "block" ? "none" : "block";
     }
   };
 
+  // Function to handle user logout
   const handleLogout = async () => {
-    await fetch('/api/logout', {
-      method: 'POST',
+    await fetch("/api/logout", {
+      method: "POST",
     });
     setUser(null);
   };
 
+  // HTML structure for the header component
   return (
     <div>
       <div className="bg-purple-700 py-4 px-6 flex justify-between items-center">
@@ -43,7 +58,7 @@ export default function Header() {
         <button
           id="hamburger-button"
           className={`inline-block cursor-pointer md:hidden ${
-            isMenuOpen ? 'change' : ''
+            isMenuOpen ? "change" : ""
           }`}
           onClick={hamburgerClick}
         >
@@ -96,19 +111,11 @@ export default function Header() {
           </div>
           {user ? (
             <div className="w-full bg-purple-400 text-md py-3 px-6 text-white">
-              <button
-                
-                onClick={handleLogout}
-              >
-                Logout
-              </button>
+              <button onClick={handleLogout}>Logout</button>
             </div>
           ) : (
             <div className="w-full bg-purple-400 text-md py-3 px-6 text-white">
-              <button
-                
-                onClick={() => setIsLoginModalOpen(true)}
-              >
+              <button onClick={() => setIsLoginModalOpen(true)}>
                 Login/Register
               </button>
             </div>

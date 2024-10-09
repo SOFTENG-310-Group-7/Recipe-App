@@ -1,22 +1,34 @@
 "use client";
 
-import { useState, useContext } from 'react';
-import { AuthContext } from '../contexts/AuthContext';
+import { useState, useContext } from "react";
+import { AuthContext } from "../contexts/AuthContext";
 
+/**
+ *
+ * LoginModal Component
+ *
+ * This component renders a modal for user login and registration.
+ *
+ * @Component
+ *
+ * @param {Object} onClose
+ * @returns
+ */
 export default function LoginModal({ onClose }) {
   const { setUser } = useContext(AuthContext);
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
 
   const handleLogin = async (e) => {
     e.preventDefault();
 
+    // Have multiple try/catch blocks to handle different errors
     try {
-      const response = await fetch('/api/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
 
@@ -29,8 +41,8 @@ export default function LoginModal({ onClose }) {
         setError(data.message);
       }
     } catch (err) {
-      console.error('An error occurred:', err);
-      setError('An unexpected error occurred');
+      console.error("An error occurred:", err);
+      setError("An unexpected error occurred");
     }
   };
 
@@ -38,9 +50,9 @@ export default function LoginModal({ onClose }) {
     e.preventDefault();
 
     try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+      const response = await fetch("/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),
       });
 
@@ -53,15 +65,18 @@ export default function LoginModal({ onClose }) {
         setError(data.message);
       }
     } catch (err) {
-      console.error('An error occurred:', err);
-      setError('An unexpected error occurred');
+      console.error("An error occurred:", err);
+      setError("An unexpected error occurred");
     }
   };
 
+  // HTML structure for the LoginModal component
   return (
     <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
       <div className="bg-white rounded-md p-6 w-full max-w-sm">
-        <h2 className="text-2xl mb-4">{isRegistering ? 'Register' : 'Login'}</h2>
+        <h2 className="text-2xl mb-4">
+          {isRegistering ? "Register" : "Login"}
+        </h2>
         {error && <div className="mb-4 text-red-500">{error}</div>}
         <form onSubmit={isRegistering ? handleRegister : handleLogin}>
           <div className="mb-4">
@@ -96,7 +111,7 @@ export default function LoginModal({ onClose }) {
               type="submit"
               className="px-4 py-2 bg-blue-500 text-white rounded-md"
             >
-              {isRegistering ? 'Register' : 'Login'}
+              {isRegistering ? "Register" : "Login"}
             </button>
           </div>
         </form>
@@ -106,7 +121,9 @@ export default function LoginModal({ onClose }) {
             className="text-blue-500 hover:underline"
             onClick={() => setIsRegistering(!isRegistering)}
           >
-            {isRegistering ? 'Already have an account? Login' : 'Need an account? Register'}
+            {isRegistering
+              ? "Already have an account? Login"
+              : "Need an account? Register"}
           </button>
         </div>
       </div>

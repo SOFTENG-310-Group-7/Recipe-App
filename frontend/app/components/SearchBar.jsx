@@ -1,19 +1,33 @@
 "use client";
 
-import {useEffect, useState} from 'react';
-import { useRouter } from 'next/navigation';
-import DropDown from './DropDown';
-import { generateRecipe } from '../lib/api';
+import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import DropDown from "./DropDown";
+import { generateRecipe } from "../lib/api";
 
+/**
+ *
+ * SearchBar Component
+ *
+ * This component renders a search bar with input fields and dropdowns.
+ * The search bar allows users to enter ingredients, select meal type, serving size, cuisine, and dietary restrictions.
+ * When the search button is clicked, the component calls the `generateRecipe` function to fetch recipes based on the user input.
+ *
+ * @Component
+ *
+ * @returns {JSX.Element} A search bar component with input fields and dropdowns.
+ */
 export default function SearchBar() {
-  const [query, setQuery] = useState('');
-  const [mealType, setMealType] = useState('Any');
-  const [servingSize, setServingSize] = useState('Any');
-  const [cuisine, setCuisine] = useState('Any');
-  const [dietaryRestriction, setDietaryRestriction] = useState('None');
+  const [query, setQuery] = useState("");
+  const [mealType, setMealType] = useState("Any");
+  const [servingSize, setServingSize] = useState("Any");
+  const [cuisine, setCuisine] = useState("Any");
+  const [dietaryRestriction, setDietaryRestriction] = useState("None");
   const [loading, setLoading] = useState(false);
   const [inputError, setInputError] = useState(false); // State to track input error
-  const [loadingMessage, setLoadingMessage] = useState('Loading recipes, please wait');
+  const [loadingMessage, setLoadingMessage] = useState(
+    "Loading recipes, please wait"
+  );
 
   const router = useRouter();
 
@@ -24,24 +38,30 @@ export default function SearchBar() {
     }
   };
 
+  // Descriptors for the dropdowns
   const handleDropDownSelect = (label, option) => {
-    if (label === 'Meal Type') setMealType(option);
-    if (label === 'Serving Size') setServingSize(option);
-    if (label === 'Cuisine') setCuisine(option);
-    if (label === 'Dietary Restriction') setDietaryRestriction(option);
+    if (label === "Meal Type") setMealType(option);
+    if (label === "Serving Size") setServingSize(option);
+    if (label === "Cuisine") setCuisine(option);
+    if (label === "Dietary Restriction") setDietaryRestriction(option);
   };
 
   useEffect(() => {
     let timer;
     if (loading) {
-      const messages = ['Loading recipes, please wait', 'Loading recipes, please wait.', 'Loading recipes, please wait..', 'Loading recipes, please wait...'];
+      const messages = [
+        "Loading recipes, please wait",
+        "Loading recipes, please wait.",
+        "Loading recipes, please wait..",
+        "Loading recipes, please wait...",
+      ];
       let index = 0;
       timer = setInterval(() => {
         setLoadingMessage(messages[index]);
         index = (index + 1) % messages.length;
       }, 500); // Update message every 500ms
     } else {
-      setLoadingMessage('Loading recipes, please wait');
+      setLoadingMessage("Loading recipes, please wait");
     }
 
     return () => clearInterval(timer);
@@ -55,6 +75,7 @@ export default function SearchBar() {
       return;
     }
 
+    // Store user input and dropdown selections
     const ingredients = query;
     const selectedCuisine = cuisine;
     const selectedMealType = mealType;
@@ -64,44 +85,52 @@ export default function SearchBar() {
     setLoading(true);
 
     try {
-
       // call gemini to get recipes
-      const data = await generateRecipe(ingredients, selectedCuisine, selectedDietaryRestriction, selectedMealType, selectedServingSize);
+      const data = await generateRecipe(
+        ingredients,
+        selectedCuisine,
+        selectedDietaryRestriction,
+        selectedMealType,
+        selectedServingSize
+      );
 
       // clear generated recipes in backend | have to call this after the api call otherwise no recipe data is shown
-      await fetch('http://localhost:5000/api/server/generated-recipes', {
-        method: 'DELETE',
+      await fetch("http://localhost:5000/api/server/generated-recipes", {
+        method: "DELETE",
       });
 
       // store generated recipes in backend
-      const response = await fetch('http://localhost:5000/api/server/generated-recipes', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ recipes: data })
-      });
+      const response = await fetch(
+        "http://localhost:5000/api/server/generated-recipes",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ recipes: data }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
       }
 
-      router.push('/result');
+      router.push("/result");
     } catch (error) {
-      console.error('Error fetching or storing the recipe:', error);
+      console.error("Error fetching or storing the recipe:", error);
     } finally {
       setLoading(false);
     }
   };
 
-
   const handleKeyDown = (e) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       e.preventDefault();
       handleSearch(e);
     }
   };
 
+  // HTML structure for the search bar component
   return (
     <div className="flex flex-col items-center mt-6">
       <div className="flex justify-center mb-4 w-full">
@@ -110,18 +139,20 @@ export default function SearchBar() {
             <div className="flex items-center justify-center rounded-md overflow-hidden w-full">
               <input
                 type="text"
-                className={`self-center md:w-full w-[60%] rounded-l-md border-2 p-2 ${inputError ? 'border-red-500' : 'border-black'}`}
+                className={`self-center md:w-full w-[60%] rounded-l-md border-2 p-2 ${
+                  inputError ? "border-red-500" : "border-black"
+                }`}
                 placeholder="Enter ingredients..."
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                style={{color: 'black'}}
+                style={{ color: "black" }}
               />
               <button
                 type="submit"
                 className="bg-black text-white px-6 text-lg font-semibold py-2 rounded-r-md"
                 disabled={loading}
               >
-                {loading ? 'Loading' : 'Go'}
+                {loading ? "Loading" : "Go"}
               </button>
             </div>
           </div>
@@ -132,28 +163,36 @@ export default function SearchBar() {
         <DropDown
           label="Meal Type"
           options={["Breakfast", "Lunch", "Dinner", "Any"]}
-          onSelect={(option) => handleDropDownSelect('Meal Type', option)}
+          onSelect={(option) => handleDropDownSelect("Meal Type", option)}
         />
         <DropDown
           label="Serving Size"
           options={[1, 2, 3, 4, 5, "Any"]}
-          onSelect={(option) => handleDropDownSelect('Serving Size', option)}
+          onSelect={(option) => handleDropDownSelect("Serving Size", option)}
         />
         <DropDown
           label="Cuisine"
           options={["Italian", "Indian", "French", "Spanish", "Any"]}
-          onSelect={(option) => handleDropDownSelect('Cuisine', option)}
+          onSelect={(option) => handleDropDownSelect("Cuisine", option)}
         />
         <DropDown
           label="Dietary Restriction"
-          options={["Vegan", "Vegetarian", "Halal", "Gluten-Free", "Lactose Intolerant", "Food allergies", "None"]}
-          onSelect={(option) => handleDropDownSelect('Dietary Restriction', option)}
+          options={[
+            "Vegan",
+            "Vegetarian",
+            "Halal",
+            "Gluten-Free",
+            "Lactose Intolerant",
+            "Food allergies",
+            "None",
+          ]}
+          onSelect={(option) =>
+            handleDropDownSelect("Dietary Restriction", option)
+          }
         />
       </div>
 
-      {loading && (
-        <div className="mt-4 text-gray-600">{loadingMessage}</div>
-      )}
+      {loading && <div className="mt-4 text-gray-600">{loadingMessage}</div>}
     </div>
   );
 }

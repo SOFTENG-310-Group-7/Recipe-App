@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Custom CSS that can be used everywhere*/
 :root {
   --foreground-rgb: 0, 0, 0;
   /* --background-start-rgb: 214, 219, 220; */
@@ -17,10 +18,9 @@
 }
 
 body {
-    color: rgb(var(--foreground-rgb));
-    /* background: rgb(var(--background-start-rgb)); */
-  }
-  
+  color: rgb(var(--foreground-rgb));
+  /* background: rgb(var(--background-start-rgb)); */
+}
 
 @layer utilities {
   .text-balance {

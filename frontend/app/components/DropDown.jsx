@@ -2,6 +2,21 @@ import { useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { motion } from "framer-motion";
 
+/**
+ *
+ * Dropdown Component
+ *
+ * This component renders a dropdown menu with a label and options.
+ *
+ * @Component
+ *
+ * @param {Object} props - The component props.
+ * @param {string} props.label - The label for the dropdown.
+ * @param {Array<string>} props.options - The options to be displayed in the dropdown.
+ * @param {Function} props.onSelect - The function to be called when an option is selected.
+ *
+ * @returns {JSX.Element} A dropdown component with a label and options.
+ */
 const DropDown = ({ label, options, onSelect }) => {
   const [open, setOpen] = useState(false);
   const [selected, setSelected] = useState(null);
