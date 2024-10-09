@@ -5,6 +5,7 @@ import './header.css';
 import { useRef, useState, useContext } from 'react';
 import LoginModal from './LoginModal';
 import { AuthContext } from '../contexts/AuthContext';
+import { useRouter } from 'next/navigation';
 
 export default function Header() {
   const savedOptionRef = useRef(null);
@@ -12,6 +13,7 @@ export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isLoginModalOpen, setIsLoginModalOpen] = useState(false);
   const { user, setUser } = useContext(AuthContext);
+  const router = useRouter();
 
   const hamburgerClick = () => {
     setIsMenuOpen((prev) => !prev);
@@ -29,6 +31,10 @@ export default function Header() {
     });
     setUser(null);
   };
+
+  const handleAbout = () => {
+    router.push('/about');
+  }
 
   return (
     <div>
@@ -55,7 +61,8 @@ export default function Header() {
           <button className="bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700">
             Saved Recipes
           </button>
-          <button className="bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700">
+          <button className="bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700"
+          onClick={handleAbout}>
             About
           </button>
           {user ? (
@@ -80,38 +87,31 @@ export default function Header() {
       {/* Mobile Menu Options */}
       {isMenuOpen && (
         <div className="md:hidden">
-          <div
+          <button
             id="saved-option"
             ref={savedOptionRef}
-            className="w-full bg-purple-400 text-md py-3 px-6 text-white"
+            className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left"
           >
             Saved Recipes
-          </div>
-          <div
+          </button>
+          <button
             id="about-option"
             ref={aboutOptionRef}
-            className="w-full bg-purple-400 text-md py-3 px-6 text-white"
+            className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left"
+            onClick={handleAbout}
           >
             About
-          </div>
+          </button>
           {user ? (
-            <div className="w-full bg-purple-400 text-md py-3 px-6 text-white">
-              <button
-                
-                onClick={handleLogout}
-              >
+            <button className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left" 
+            onClick={handleLogout}>
                 Logout
-              </button>
-            </div>
+            </button>
           ) : (
-            <div className="w-full bg-purple-400 text-md py-3 px-6 text-white">
-              <button
-                
-                onClick={() => setIsLoginModalOpen(true)}
-              >
+            <button className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left" 
+            onClick={() => setIsLoginModalOpen(true)}>
                 Login/Register
-              </button>
-            </div>
+            </button>
           )}
         </div>
       )}
