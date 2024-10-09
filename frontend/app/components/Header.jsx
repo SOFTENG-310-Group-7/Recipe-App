@@ -7,7 +7,6 @@ import LoginModal from './LoginModal';
 import { AuthContext } from '../contexts/AuthContext';
 import { useRouter } from 'next/navigation';
 
-
 export default function Header() {
   const savedOptionRef = useRef(null);
   const aboutOptionRef = useRef(null);
@@ -32,7 +31,6 @@ export default function Header() {
     });
   };
 
-
   const hamburgerClick = () => {
     setIsMenuOpen((prev) => !prev);
     if (savedOptionRef.current && aboutOptionRef.current) {
@@ -50,7 +48,6 @@ export default function Header() {
     setUser(null);
   };
 
-
   // Function to handle "Saved Recipes" click
   const handleSavedRecipesClick = () => {
     if (user) {
@@ -64,8 +61,7 @@ export default function Header() {
 
   const handleAbout = () => {
     router.push('/about');
-  }
-
+  };
 
   return (
     <div>
@@ -97,13 +93,15 @@ export default function Header() {
         <div className="space-x-4 hidden md:block">
           {/* Updated Saved Recipes button */}
           <button
-            onClick={handleSavedRecipesClick}  // Call the new handler here
+            onClick={handleSavedRecipesClick}
             className="bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700"
           >
             Saved Recipes
           </button>
-          <button className="bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700"
-          onClick={handleAbout}>
+          <button
+            className="bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700"
+            onClick={handleAbout}
+          >
             About
           </button>
           {user ? (
@@ -128,15 +126,13 @@ export default function Header() {
       {/* Mobile Menu Options */}
       {isMenuOpen && (
         <div className="md:hidden">
-          <button
+          <div
             id="saved-option"
             ref={savedOptionRef}
             className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left"
+            onClick={handleSavedRecipesClick}
           >
-            {/* Updated Saved Recipes button */}
-            <button onClick={handleSavedRecipesClick} className="w-full">
-              Saved Recipes
-            </button>
+            Saved Recipes
           </div>
           <div
             id="about-option"
@@ -145,17 +141,21 @@ export default function Header() {
             onClick={handleAbout}
           >
             About
-          </button>
+          </div>
           {user ? (
-            <button className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left" 
-            onClick={handleLogout}>
-                Logout
-            </button>
+            <div
+              className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left"
+              onClick={handleLogout}
+            >
+              Logout
+            </div>
           ) : (
-            <button className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left" 
-            onClick={() => setIsLoginModalOpen(true)}>
-                Login/Register
-            </button>
+            <div
+              className="w-full bg-purple-400 text-md py-3 px-6 text-white text-left"
+              onClick={() => setIsLoginModalOpen(true)}
+            >
+              Login/Register
+            </div>
           )}
         </div>
       )}
