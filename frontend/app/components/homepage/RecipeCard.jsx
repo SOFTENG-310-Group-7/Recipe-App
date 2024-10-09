@@ -25,13 +25,13 @@ import React from "react";
  */
 const RecipeCard = ({ title, ingredients, cookTime }) => {
   return (
-    <div className="border border-black p-4 w-72 rounded-md shadow-sm cursor-pointer duration-200 hover:scale-105">
-      <h3 className="text-xl font-semibold mb-2 text-black">{title}</h3>
-      <p className="mb-2 text-black">
-        <span className="font-semibold ">Ingredients:</span> {ingredients}
+    <div className="border border-black p-4 w-72 rounded-md shadow-sm cursor-pointer duration-200 hover:scale-105 dark:border-white">
+      <h3 className="text-xl font-semibold mb-2 text-black dark:text-purple-400">{title}</h3>
+      <p className="mb-2 text-black dark:text-purple-400">
+        <span className="font-semibold text-black dark:text-purple-400">Ingredients:</span> {ingredients}
       </p>
-      <p className="text-black">
-        <span className="font-semibold text-black">Cook time:</span> {cookTime}
+      <p className="text-black dark:text-purple-400">
+        <span className="font-semibold text-black dark:text-purple-400">Cook time:</span> {cookTime}
       </p>
     </div>
   );

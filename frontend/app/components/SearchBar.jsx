@@ -110,11 +110,10 @@ export default function SearchBar() {
             <div className="flex items-center justify-center rounded-md overflow-hidden w-full">
               <input
                 type="text"
-                className={`self-center md:w-full w-[60%] rounded-l-md border-2 p-2 ${inputError ? 'border-red-500' : 'border-black'}`}
+                className={`text-black dark:text-white self-center md:w-full w-[60%] rounded-l-md border-2 p-2 ${inputError ? 'border-red-500' : 'border-black'}`}
                 placeholder="Enter ingredients..."
                 onChange={handleInputChange}
                 onKeyDown={handleKeyDown}
-                style={{color: 'black'}}
               />
               <button
                 type="submit"

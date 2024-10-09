@@ -67,7 +67,7 @@ const PopularCategories = () => {
 
   return (
     <div className="text-center mt-12">
-      <h2 className="text-3xl font-bold mb-8 text-black">Popular Categories</h2>
+      <h2 className="text-3xl font-bold mb-8 text-black dark:text-white">Popular Categories</h2>
       <div className="flex flex-wrap justify-center gap-8">
         {categories.map((category) => (
           <button
@@ -85,7 +85,7 @@ const PopularCategories = () => {
                 className="object-cover w-full h-full"
               />
             </div>
-            <p className="mt-4 text-2xl md:text-lg font-medium text-black">{category.title}</p>
+            <p className="mt-4 text-2xl md:text-lg font-medium text-black dark:text-purple-400 ">{category.title}</p>
           </button>
         ))}
       </div>

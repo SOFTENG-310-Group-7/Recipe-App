@@ -16,7 +16,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body className={inter.className}>
         <ClientProvider>
-          <div className="bg-white">
+          <div className="bg-white dark:bg-[#333333] dark:text-white transition-colors duration-300 min-h-screen">
             <Header />
             <div>
               <SearchBar />
