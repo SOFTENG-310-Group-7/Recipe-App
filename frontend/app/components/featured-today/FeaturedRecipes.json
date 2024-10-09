@@ -1,46 +1,6 @@
 {
     "recipes": [
         {
-            "title": "Tiramisu",
-            "ingredients": [
-                "Strong coffee",
-                "Coffee liqueur (optional)",
-                "Egg yolks",
-                "Sugar",
-                "Mascarpone cheese",
-                "Heavy cream",
-                "Ladyfinger cookies",
-                "Cocoa powder"
-            ],
-            "detailedIngredients": [
-                "1 cup strong coffee, cooled",
-                "3 tablespoons coffee liqueur (optional)",
-                "3 large egg yolks",
-                "1/2 cup sugar",
-                "1 cup mascarpone cheese",
-                "1 cup heavy cream",
-                "1 package ladyfinger cookies",
-                "Cocoa powder for dusting"
-            ],
-            "cookingTime": "4 hours (chill time included)",
-            "instructions": [
-                "In a bowl, mix coffee and liqueur. Set aside.",
-                "In another bowl, whisk egg yolks and sugar until creamy. Fold in mascarpone until smooth.",
-                "In a separate bowl, whip the heavy cream until stiff peaks form, then fold into the mascarpone mixture.",
-                "Dip each ladyfinger into the coffee mixture and layer them in a dish. Spread half of the mascarpone mixture over the top.",
-                "Repeat with another layer of dipped ladyfingers and the remaining mascarpone. Chill for at least 4 hours.",
-                "Dust with cocoa powder before serving."
-            ],
-            "recipeImage": "tiramisu",
-            "tags": [
-                "Dessert",
-                "Italian",
-                "No-Bake",
-                "Easy",
-                "Elegant"
-            ]
-        },
-        {
             "title": "Banana Oat Pancakes",
             "ingredients": [
                 "Rolled oats",
@@ -253,40 +213,6 @@
             ]
         },
         {
-            "title": "Pork and Chive Dumplings",
-            "ingredients": [
-                "Ground pork",
-                "Chives",
-                "Ginger",
-                "Soy sauce",
-                "Dumpling wrappers",
-                "Sesame oil"
-            ],
-            "detailedIngredients": [
-                "1 pound ground pork",
-                "1 cup chopped chives",
-                "1 tablespoon ginger, minced",
-                "2 tablespoons soy sauce",
-                "1 tablespoon sesame oil",
-                "Dumpling wrappers (store-bought or homemade)"
-            ],
-            "cookingTime": "40 minutes",
-            "instructions": [
-                "In a bowl, combine ground pork, chives, ginger, soy sauce, and sesame oil.",
-                "Place a spoonful of filling in the center of each dumpling wrapper.",
-                "Moisten the edges with water and fold to seal.",
-                "Steam or pan-fry the dumplings until cooked through.",
-                "Serve with soy sauce or dipping sauce."
-            ],
-            "recipeImage": "pork-and-chive-dumplings",
-            "tags": [
-                "Appetizer",
-                "Chinese",
-                "Savory",
-                "Easy"
-            ]
-        },
-        {
             "title": "Butter Chicken",
             "ingredients": [
                 "Chicken thighs",
@@ -361,46 +287,6 @@
                 "Indian",
                 "Vegetarian",
                 "Healthy"
-            ]
-        },
-        {
-            "title": "Tiramisu",
-            "ingredients": [
-                "Strong coffee",
-                "Coffee liqueur (optional)",
-                "Egg yolks",
-                "Sugar",
-                "Mascarpone cheese",
-                "Heavy cream",
-                "Ladyfinger cookies",
-                "Cocoa powder"
-            ],
-            "detailedIngredients": [
-                "1 cup strong coffee, cooled",
-                "3 tablespoons coffee liqueur (optional)",
-                "3 large egg yolks",
-                "1/2 cup sugar",
-                "1 cup mascarpone cheese",
-                "1 cup heavy cream",
-                "1 package ladyfinger cookies",
-                "Cocoa powder for dusting"
-            ],
-            "cookingTime": "4 hours (chill time included)",
-            "instructions": [
-                "In a bowl, mix coffee and liqueur. Set aside.",
-                "In another bowl, whisk egg yolks and sugar until creamy. Fold in mascarpone until smooth.",
-                "In a separate bowl, whip the heavy cream until stiff peaks form, then fold into the mascarpone mixture.",
-                "Dip each ladyfinger into the coffee mixture and layer them in a dish. Spread half of the mascarpone mixture over the top.",
-                "Repeat with another layer of dipped ladyfingers and the remaining mascarpone. Chill for at least 4 hours.",
-                "Dust with cocoa powder before serving."
-            ],
-            "recipeImage": "tiramisu",
-            "tags": [
-                "Dessert",
-                "Italian",
-                "No-Bake",
-                "Easy",
-                "Elegant"
             ]
         },
         {
@@ -793,43 +679,6 @@
                 "Comfort Food",
                 "Hearty",
                 "Easy"
-            ]
-        },
-        {
-            "title": "Baklava",
-            "ingredients": [
-                "Phyllo dough",
-                "Chopped nuts (walnuts, pistachios)",
-                "Sugar",
-                "Butter",
-                "Cinnamon",
-                "Honey",
-                "Water"
-            ],
-            "detailedIngredients": [
-                "1 package phyllo dough",
-                "2 cups chopped nuts (walnuts or pistachios)",
-                "1 cup sugar",
-                "1 cup butter, melted",
-                "1 teaspoon cinnamon",
-                "1 cup honey",
-                "1/2 cup water"
-            ],
-            "cookingTime": "1 hour",
-            "instructions": [
-                "Preheat oven to 350°F (175°C).",
-                "In a bowl, mix chopped nuts with sugar and cinnamon.",
-                "Layer phyllo sheets in a greased baking dish, brushing each layer with melted butter.",
-                "Sprinkle nut mixture between layers. Top with remaining phyllo.",
-                "Cut into diamond shapes and bake for 45 minutes until golden.",
-                "In a saucepan, combine honey and water; bring to a boil and pour over baklava when done baking."
-            ],
-            "recipeImage": "baklava",
-            "tags": [
-                "Dessert",
-                "Middle Eastern",
-                "Sweet",
-                "Traditional"
             ]
         },
         {
