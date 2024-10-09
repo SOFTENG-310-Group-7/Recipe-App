@@ -8,9 +8,9 @@ export default function Ingredients({ ingredients }) {
 
     return (
         <div style={styles.ingredientsContainer}>
-            <h3 style={styles.ingredientsHeader}>Ingredients:</h3>
+            <h3 style={styles.ingredientsHeader} className="text-black dark:text-black">Ingredients:</h3>
             <Divider />
-            <div style={styles.ingredientsList}>
+            <div style={styles.ingredientsList} className="text-black dark:text-black">
                 {ingredients.map((ingredient, index) => (
                     <React.Fragment key={index}>
                         <small>{ingredient}</small>
