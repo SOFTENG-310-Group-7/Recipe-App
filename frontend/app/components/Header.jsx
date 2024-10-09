@@ -97,7 +97,7 @@ export default function Header() {
           {user ? (
             <div className="w-full bg-purple-400 text-md py-3 px-6 text-white">
               <button
-                className="w-full bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700"
+                
                 onClick={handleLogout}
               >
                 Logout
@@ -106,7 +106,7 @@ export default function Header() {
           ) : (
             <div className="w-full bg-purple-400 text-md py-3 px-6 text-white">
               <button
-                className="w-full bg-purple-700 px-5 py-2.5 border-2 border-color-white text-white rounded-xl hover:bg-white hover:text-purple-700"
+                
                 onClick={() => setIsLoginModalOpen(true)}
               >
                 Login/Register
